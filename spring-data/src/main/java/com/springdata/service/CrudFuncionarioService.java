@@ -12,7 +12,7 @@ import com.springdata.repository.FuncionarioRepository;
 @Service
 public class CrudFuncionarioService {
 	
-	private Funcionario fucionario = new Funcionario();
+	private Funcionario funcionario = new Funcionario();
 	Scanner scanner = new Scanner(System.in);
 	private Boolean system = true;
 	
@@ -51,7 +51,6 @@ public class CrudFuncionarioService {
 			}
 			
 		}
-		//salvar(scanner);
 	}
 	
 	private void salvar(Scanner scanner) {
@@ -61,34 +60,45 @@ public class CrudFuncionarioService {
 		String cpf = scanner.next();
 		System.out.println("Salario do Funcionario");
 		Double salario = scanner.nextDouble();
-		fucionario.setNome(nome);
-		fucionario.setCpf(cpf);
-		fucionario.setSalario(salario);
-		fucionario.setDataContratacao(LocalDateTime.now());
+		funcionario.setNome(nome);
+		funcionario.setCpf(cpf);
+		funcionario.setSalario(salario);
+		funcionario.setDataContratacao(LocalDateTime.now());
 		System.out.println("Salvo!");
 	}
 	
 	private void atualizar(Scanner scanner) {
-		Cargo cargo = new Cargo();
+		
 		System.out.println("Digite o Id do cargo");
 		int id= scanner.nextInt();
-		System.out.println("Digite nova Descricao");
-		String desc = scanner.next();
-		cargo.setDescricao(desc);
-		cargo.setId(id);
-		//cargoRepository.save(cargo);
+		System.out.println("Digite o novo nome do Funcionario");
+		String nome = scanner.next();
+		System.out.println("Digite o novo CPF do Funcionario");
+		String cpf = scanner.next();
+		System.out.println("Digite o novo Salario do Funcionario");
+		Double salario = scanner.nextDouble();
+		funcionario.setId(id);
+		
+		if(!nome.isBlank()) {
+			funcionario.setNome(nome);
+		} else if(!cpf.isBlank()) {
+			funcionario.setCpf(cpf);
+		} else if(!salario.isNaN()) {
+			funcionario.setSalario(salario);
+		}
+
+		funcionarioRepository.save(funcionario);
 		System.out.println("Atualizado!");
 	}
 	private void visualizar() {
-	//	Iterable<Cargo> cargos = cargoRepository.findAll();
-		//cargos.forEach(cargo-> System.out.println(cargo));
+		Iterable<Funcionario> funcionarios = funcionarioRepository.findAll();
+		funcionarios.forEach(funcionario->System.out.println(funcionario));
 	}
 	
 	public void deletar(Scanner scanner) {
-		System.out.println("Digite o Id");
+		System.out.println("Digite o Id do Funcionario");
 		int id = scanner.nextInt();
-	//	cargoRepository.deleteById(id);
-		
+		funcionarioRepository.deleteById(id);	
 	}
 
 }
