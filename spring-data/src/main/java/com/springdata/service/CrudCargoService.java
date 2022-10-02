@@ -50,7 +50,7 @@ public class CrudCargoService {
 			}
 			
 		}
-		//salvar(scanner);
+		
 	}
 	
 	private void salvar(Scanner scanner) {

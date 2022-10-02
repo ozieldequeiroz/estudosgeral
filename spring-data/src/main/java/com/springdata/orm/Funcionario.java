@@ -1,6 +1,7 @@
 package com.springdata.orm;
 
 import java.time.LocalDateTime;
+
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -53,24 +54,5 @@ public class Funcionario {
 		return "Funcionario [ Id=" + Id + ", nome=" + nome + ", cpf=" + cpf + ", salario=" + salario
 				+ ", dataContratacao=" + dataContratacao + " ]";
 	}
-	@Override
-	public int hashCode() {
-		return Objects.hash(Id, cpf, dataContratacao, nome, salario);
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Funcionario other = (Funcionario) obj;
-		return Objects.equals(Id, other.Id) && Objects.equals(cpf, other.cpf)
-				&& Objects.equals(dataContratacao, other.dataContratacao) && Objects.equals(nome, other.nome)
-				&& Objects.equals(salario, other.salario);
-	}
-	
 
 }
