@@ -1,15 +1,24 @@
 package com.springdata.orm;
 
 import java.time.LocalDateTime;
-
-import java.util.Objects;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
+@Table(name = "funcionario")
 public class Funcionario {
 	
 	@Id
@@ -19,6 +28,18 @@ public class Funcionario {
 	private String cpf;
 	private Double salario;
 	private LocalDateTime dataContratacao;
+	
+	@ManyToOne
+	@JoinColumn(name="cargo")
+	Cargo cargo = new Cargo();
+	
+	@Fetch(FetchMode.SELECT)
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "funcionarios_unidades",
+	joinColumns = {@JoinColumn( name="fk_funcionario")},
+	inverseJoinColumns = {@JoinColumn(name = "fk_unidade")})
+	List<Unidade> unidades;
+	
 	public Integer getId() {
 		return Id;
 	}

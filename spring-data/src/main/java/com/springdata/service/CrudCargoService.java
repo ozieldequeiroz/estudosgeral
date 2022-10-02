@@ -32,6 +32,9 @@ public class CrudCargoService {
 			int action = scanner.nextInt();
 			
 			switch (action) {
+			case 0:
+				system = false;
+				break;
 			case 1:
 				salvar(scanner);
 				break;

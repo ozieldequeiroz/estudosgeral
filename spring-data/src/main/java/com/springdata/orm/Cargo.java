@@ -1,9 +1,13 @@
 package com.springdata.orm;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -14,6 +18,9 @@ public class Cargo {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	private String descricao;
+	
+	@OneToMany(mappedBy = "cargos_id")
+	List<Funcionario> funcionarios = new ArrayList<>();
 	
 	public Integer getId() {
 		return id;

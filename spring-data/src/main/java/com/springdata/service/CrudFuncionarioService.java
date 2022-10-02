@@ -1,11 +1,11 @@
 package com.springdata.service;
 
 import java.time.LocalDateTime;
+
 import java.util.Scanner;
 
 import org.springframework.stereotype.Service;
 
-import com.springdata.orm.Cargo;
 import com.springdata.orm.Funcionario;
 import com.springdata.repository.FuncionarioRepository;
 
@@ -33,6 +33,9 @@ public class CrudFuncionarioService {
 			int action = scanner.nextInt();
 			
 			switch (action) {
+			case 0:
+				system = false;
+				break;
 			case 1:
 				salvar(scanner);
 				break;
@@ -92,6 +95,7 @@ public class CrudFuncionarioService {
 	}
 	private void visualizar() {
 		Iterable<Funcionario> funcionarios = funcionarioRepository.findAll();
+		System.out.println("chegou aqui 1");
 		funcionarios.forEach(funcionario->System.out.println(funcionario));
 	}
 	

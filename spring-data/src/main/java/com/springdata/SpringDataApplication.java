@@ -46,6 +46,8 @@ public class SpringDataApplication implements CommandLineRunner{
 			int action = scanner.nextInt();
 			
 			switch (action) {
+			case 0:
+				system = false;
 			case 1:
 				crudCargoService.iniciar(scanner);
 				break;
@@ -53,7 +55,6 @@ public class SpringDataApplication implements CommandLineRunner{
 				funcionarioService.iniciar(scanner);
 			case 3:
 				unidadeService.iniciar(scanner);
-
 			default:
 				system = false;
 				break;

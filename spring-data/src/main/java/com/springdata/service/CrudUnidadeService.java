@@ -32,6 +32,9 @@ public class CrudUnidadeService {
 			int action = scanner.nextInt();
 			
 			switch (action) {
+			case 0:
+				system = false;
+				break;
 			case 1:
 				salvar(scanner);
 				break;
@@ -48,9 +51,7 @@ public class CrudUnidadeService {
 				system = false; 
 				break;
 			}
-			
 		}
-		
 	}
 	
 	private void salvar(Scanner scanner) {
