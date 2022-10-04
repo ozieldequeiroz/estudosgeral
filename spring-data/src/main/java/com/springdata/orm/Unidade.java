@@ -23,8 +23,9 @@ public class Unidade {
 	private String descricao;
 	private String endereco;
 	
+	
 	@ManyToMany(mappedBy = "unidade",fetch = FetchType.EAGER)
-	List<Funcionario> funcionarios = new ArrayList<>();
+	List<Funcionario> funcionarios ;
 	
 	public Integer getId() {
 		return Id;

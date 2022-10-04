@@ -19,8 +19,8 @@ public class Cargo {
 	private Integer id;
 	private String descricao;
 	
-	@OneToMany(mappedBy = "cargos_id")
-	List<Funcionario> funcionarios = new ArrayList<>();
+	@OneToMany(mappedBy = "cargo")
+	private List<Funcionario> funcionarios ;
 	
 	public Integer getId() {
 		return id;
@@ -37,9 +37,7 @@ public class Cargo {
 	
 	@Override
 	public String toString() {
-		return "Cargo [id=" + id + ", descricao=" + descricao + "]";
+		return "Cargo [ id=" + id + ", descricao=" + descricao + " ]";
 	}
 	
-	
-
 }

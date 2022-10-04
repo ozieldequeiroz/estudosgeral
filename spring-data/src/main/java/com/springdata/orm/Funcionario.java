@@ -18,7 +18,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 @Entity
-@Table(name = "funcionario")
+@Table(name = "funcionarios")
 public class Funcionario {
 	
 	@Id
@@ -33,10 +33,11 @@ public class Funcionario {
 	@JoinColumn(name="cargo")
 	Cargo cargo = new Cargo();
 	
+	
 	@Fetch(FetchMode.SELECT)
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "funcionarios_unidades",
-	joinColumns = {@JoinColumn( name="fk_funcionario")},
+	joinColumns = { @JoinColumn( name="fk_funcionarios")},
 	inverseJoinColumns = {@JoinColumn(name = "fk_unidade")})
 	List<Unidade> unidades;
 	
