@@ -19,8 +19,9 @@ public class Cargo {
 	private Integer id;
 	private String descricao;
 	
+	
 	@OneToMany(mappedBy = "cargo")
-	private List<Funcionario> funcionarios ;
+	private List<Funcionario> funcionario;
 	
 	public Integer getId() {
 		return id;

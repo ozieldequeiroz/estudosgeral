@@ -25,7 +25,7 @@ public class Unidade {
 	
 	
 	@ManyToMany(mappedBy = "unidade",fetch = FetchType.EAGER)
-	List<Funcionario> funcionarios ;
+	List<Funcionario> funcionario;
 	
 	public Integer getId() {
 		return Id;

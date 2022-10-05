@@ -3,6 +3,7 @@ package com.springdata.orm;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,11 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 @Entity
-@Table(name = "funcionarios")
+@Table(name = "funcionario")
 public class Funcionario {
 	
 	@Id
@@ -29,16 +27,18 @@ public class Funcionario {
 	private Double salario;
 	private LocalDateTime dataContratacao;
 	
-	@ManyToOne
-	@JoinColumn(name="cargo")
-	Cargo cargo = new Cargo();
+	@ManyToOne 
+	@JoinColumn(name = "cargo_id", nullable = false)
+	private Cargo cargo = new Cargo();	
 	
-	
-	@Fetch(FetchMode.SELECT)
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "funcionarios_unidades",
-	joinColumns = { @JoinColumn( name="fk_funcionarios")},
-	inverseJoinColumns = {@JoinColumn(name = "fk_unidade")})
+	//@Fetch(FetchMode.SELECT)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	//@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "funcionarios_unidades", 
+				joinColumns = { @JoinColumn(name = "fk_funcionario", referencedColumnName = "id",
+                nullable = false, updatable = false) }, 
+	inverseJoinColumns = { @JoinColumn(name = "fk_unidade", referencedColumnName = "id",
+    nullable = false, updatable = false) })
 	List<Unidade> unidades;
 	
 	public Integer getId() {
