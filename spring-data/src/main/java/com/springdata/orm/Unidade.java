@@ -2,6 +2,7 @@ package com.springdata.orm;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,6 +24,7 @@ public class Unidade {
 	private String descricao;
 	private String endereco;
 	
+	public Unidade() {}
 	
 	@ManyToMany(mappedBy = "unidade",fetch = FetchType.EAGER)
 	List<Funcionario> funcionario;
@@ -49,5 +51,6 @@ public class Unidade {
 	public String toString() {
 		return "Unidade [Id=" + Id + ", descricao=" + descricao + ", endereco=" + endereco + "]";
 	}
-	
+
+		
 }

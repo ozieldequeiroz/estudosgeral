@@ -1,7 +1,7 @@
 package com.springdata.orm;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,8 +18,8 @@ public class Cargo {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	private String descricao;
-	
-	
+		
+	public Cargo() {}
 	@OneToMany(mappedBy = "cargo")
 	private List<Funcionario> funcionario;
 	
