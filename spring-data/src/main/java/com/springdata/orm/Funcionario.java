@@ -72,10 +72,22 @@ public class Funcionario {
 	public void setDataContratacao(LocalDateTime dataContratacao) {
 		this.dataContratacao = dataContratacao;
 	}
+
+	public Cargo getCargo() {
+		return cargo;
+	}
+	public void setCargo(Cargo cargo) {
+		this.cargo = cargo;
+	}
+	public List<Unidade> getUnidade() {
+		return unidade;
+	}
+	public void setUnidade(List<Unidade> unidade) {
+		this.unidade = unidade;
+	}
 	@Override
 	public String toString() {
 		return "Funcionario [ Id=" + Id + ", nome=" + nome + ", cpf=" + cpf + ", salario=" + salario
 				+ ", dataContratacao=" + dataContratacao + " ]";
 	}
-	
 }

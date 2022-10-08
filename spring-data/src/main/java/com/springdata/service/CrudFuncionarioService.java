@@ -1,22 +1,34 @@
 package com.springdata.service;
 
 import java.time.LocalDateTime;
-
+import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 import org.springframework.stereotype.Service;
 
+import com.springdata.orm.Cargo;
 import com.springdata.orm.Funcionario;
+import com.springdata.orm.Unidade;
+import com.springdata.repository.CargoRepository;
 import com.springdata.repository.FuncionarioRepository;
+import com.springdata.repository.UnidadeRepository;
 
 @Service
 public class CrudFuncionarioService {
 	
 	private Funcionario funcionario = new Funcionario();
+	private Cargo cargos = new Cargo();
+	private Unidade unidades = new Unidade();
+	
 	Scanner scanner = new Scanner(System.in);
 	private Boolean system = true;
 	
 	private FuncionarioRepository funcionarioRepository;
+	private CargoRepository cargoRepository;
+	private UnidadeRepository unidadeRepository;
+	private CrudCargoService cargoService;
+	private CrudUnidadeService unidadeService;
 		
 	public CrudFuncionarioService(FuncionarioRepository funcionarioRepository) {
 		this.funcionarioRepository=funcionarioRepository;
@@ -52,7 +64,6 @@ public class CrudFuncionarioService {
 				system = false; 
 				break;
 			}
-			
 		}
 	}
 	
@@ -62,7 +73,14 @@ public class CrudFuncionarioService {
 		System.out.println("CPF do Funcionario");
 		String cpf = scanner.next();
 		System.out.println("Salario do Funcionario");
-		Double salario = scanner.nextDouble();
+		Double salario = scanner.nextDouble();	
+		cargoService.visualizar();
+		System.out.println("Digite o Id do Cargo");
+		Integer cargoid = scanner.nextInt();
+		
+		Optional<Cargo> cargos = cargoRepository.findById(cargoid);
+		
+		funcionario.setCargo(cargos.get());
 		funcionario.setNome(nome);
 		funcionario.setCpf(cpf);
 		funcionario.setSalario(salario);
@@ -72,7 +90,7 @@ public class CrudFuncionarioService {
 	
 	private void atualizar(Scanner scanner) {
 		
-		System.out.println("Digite o Id do cargo");
+		System.out.println("Digite o Id do Funcionario");
 		int id= scanner.nextInt();
 		System.out.println("Digite o novo nome do Funcionario");
 		String nome = scanner.next();
@@ -95,14 +113,13 @@ public class CrudFuncionarioService {
 	}
 	private void visualizar() {
 		Iterable<Funcionario> funcionarios = funcionarioRepository.findAll();
-		System.out.println("chegou aqui 1");
 		funcionarios.forEach(funcionario->System.out.println(funcionario));
 	}
 	
-	public void deletar(Scanner scanner) {
+	private void deletar(Scanner scanner) {
 		System.out.println("Digite o Id do Funcionario");
 		int id = scanner.nextInt();
 		funcionarioRepository.deleteById(id);	
 	}
-
+	
 }
