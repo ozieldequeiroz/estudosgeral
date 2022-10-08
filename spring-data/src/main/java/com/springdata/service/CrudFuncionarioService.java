@@ -1,6 +1,7 @@
 package com.springdata.service;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -27,11 +28,11 @@ public class CrudFuncionarioService {
 	private FuncionarioRepository funcionarioRepository;
 	private CargoRepository cargoRepository;
 	private UnidadeRepository unidadeRepository;
-	private CrudCargoService cargoService;
-	private CrudUnidadeService unidadeService;
 		
-	public CrudFuncionarioService(FuncionarioRepository funcionarioRepository) {
+	public CrudFuncionarioService(FuncionarioRepository funcionarioRepository, CargoRepository cargoRepository,UnidadeRepository unidadeRepository) {
 		this.funcionarioRepository=funcionarioRepository;
+		this.cargoRepository=cargoRepository;
+		this.unidadeRepository=unidadeRepository;
 	}
 	
 	public void iniciar(Scanner scanner){
@@ -79,7 +80,7 @@ public class CrudFuncionarioService {
 		unidades = takeUnidade(scanner);
 		
 		funcionario.setCargo(cargos);
-		funcionario.setUnidade(unidades);
+		funcionario.setUnidade(Arrays.asList(unidades));
 		funcionario.setNome(nome);
 		funcionario.setCpf(cpf);
 		funcionario.setSalario(salario);
@@ -122,7 +123,12 @@ public class CrudFuncionarioService {
 	}
 	
 	private Cargo takeCargo(Scanner scanner) {
+		System.out.println("chegou aqui 1");
 		Iterable<Cargo> cargo = cargoRepository.findAll();
+		if(cargo.equals(null)) {
+			return null;
+		}
+		System.out.println("chegou aqui 2");
 		cargo.forEach(cargos->System.out.println(cargos));
 		System.out.println("Digite o Id do Cargo");
 		Integer cargoid = scanner.nextInt();
@@ -131,6 +137,9 @@ public class CrudFuncionarioService {
 	}
 	private Unidade takeUnidade(Scanner scanner) {
 		Iterable<Unidade> unidade = unidadeRepository.findAll();
+		if (unidade.equals(null)) {
+			return null;
+		}
 		unidade.forEach(unidades->System.out.println(unidades));
 		System.out.println("Digite o Id da Unidade");
 		Integer unidadeId = scanner.nextInt();
