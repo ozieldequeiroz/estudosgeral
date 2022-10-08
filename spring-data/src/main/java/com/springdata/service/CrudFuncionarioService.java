@@ -74,13 +74,12 @@ public class CrudFuncionarioService {
 		String cpf = scanner.next();
 		System.out.println("Salario do Funcionario");
 		Double salario = scanner.nextDouble();	
-		cargoService.visualizar();
-		System.out.println("Digite o Id do Cargo");
-		Integer cargoid = scanner.nextInt();
+
+		cargos = takeCargo(scanner);
+		unidades = takeUnidade(scanner);
 		
-		Optional<Cargo> cargos = cargoRepository.findById(cargoid);
-		
-		funcionario.setCargo(cargos.get());
+		funcionario.setCargo(cargos);
+		funcionario.setUnidade(unidades);
 		funcionario.setNome(nome);
 		funcionario.setCpf(cpf);
 		funcionario.setSalario(salario);
@@ -120,6 +119,23 @@ public class CrudFuncionarioService {
 		System.out.println("Digite o Id do Funcionario");
 		int id = scanner.nextInt();
 		funcionarioRepository.deleteById(id);	
+	}
+	
+	private Cargo takeCargo(Scanner scanner) {
+		Iterable<Cargo> cargo = cargoRepository.findAll();
+		cargo.forEach(cargos->System.out.println(cargos));
+		System.out.println("Digite o Id do Cargo");
+		Integer cargoid = scanner.nextInt();
+		Optional<Cargo> theCargo = cargoRepository.findById(cargoid);
+		return theCargo.get();
+	}
+	private Unidade takeUnidade(Scanner scanner) {
+		Iterable<Unidade> unidade = unidadeRepository.findAll();
+		unidade.forEach(unidades->System.out.println(unidades));
+		System.out.println("Digite o Id da Unidade");
+		Integer unidadeId = scanner.nextInt();
+		Optional<Unidade> theUnidade = unidadeRepository.findById(unidadeId);
+		return theUnidade.get();
 	}
 	
 }
