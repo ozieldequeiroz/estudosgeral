@@ -33,7 +33,7 @@ public class RelatorioService {
 				system = false;
 				break;
 			case 1:
-			//	salvar(scanner);
+				relatorioNome(scanner);
 				break;
 			case 2:
 			//	atualizar(scanner);
