@@ -10,6 +10,7 @@ import com.springdata.orm.Cargo;
 import com.springdata.service.CrudCargoService;
 import com.springdata.service.CrudFuncionarioService;
 import com.springdata.service.CrudUnidadeService;
+import com.springdata.service.RelatorioService;
 
 @SpringBootApplication
 public class SpringDataApplication implements CommandLineRunner{
@@ -19,14 +20,17 @@ public class SpringDataApplication implements CommandLineRunner{
 	private final CrudCargoService crudCargoService;
 	private final CrudFuncionarioService funcionarioService;
 	private final CrudUnidadeService unidadeService;
+	private final RelatorioService relatorioService;
 	
 	public SpringDataApplication(
 			CrudCargoService cargoRepository,
 			CrudFuncionarioService funcionarioService,
-			CrudUnidadeService unidadeService) {
+			CrudUnidadeService unidadeService,
+			RelatorioService relatorioService) {
 		this.crudCargoService = cargoRepository;
 		this.funcionarioService=funcionarioService;
 		this.unidadeService=unidadeService;
+		this.relatorioService=relatorioService;
 	}
 
 	public static void main(String[] args) {
@@ -53,8 +57,13 @@ public class SpringDataApplication implements CommandLineRunner{
 				break;
 			case 2:
 				funcionarioService.iniciar(scanner);
+				break;
 			case 3:
 				unidadeService.iniciar(scanner);
+				break;
+			case 4:
+				relatorioService.iniciar(scanner);
+				break;
 			default:
 				system = false;
 				break;

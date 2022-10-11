@@ -1,7 +1,7 @@
 package com.springdata.orm;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -28,7 +28,7 @@ public class Funcionario {
 	private String nome;
 	private String cpf;
 	private Double salario;
-	private LocalDateTime dataContratacao;
+	private LocalTime dataContratacao;
 	
 	public Funcionario() {}
 	
@@ -66,10 +66,10 @@ public class Funcionario {
 	public void setSalario(Double salario) {
 		this.salario = salario;
 	}
-	public LocalDateTime getDataContratacao() {
+	public LocalTime getDataContratacao() {
 		return dataContratacao;
 	}
-	public void setDataContratacao(LocalDateTime dataContratacao) {
+	public void setDataContratacao(LocalTime dataContratacao) {
 		this.dataContratacao = dataContratacao;
 	}
 

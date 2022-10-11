@@ -1,8 +1,7 @@
 package com.springdata.service;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -84,7 +83,7 @@ public class CrudFuncionarioService {
 		funcionario.setNome(nome);
 		funcionario.setCpf(cpf);
 		funcionario.setSalario(salario);
-		funcionario.setDataContratacao(LocalDateTime.now());
+		funcionario.setDataContratacao(LocalTime.now());
 		System.out.println("Salvo!");
 	}
 	

@@ -1,5 +1,7 @@
 package com.springdata.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,6 +16,7 @@ public class RelatorioService {
 	
 	Scanner scanner = new Scanner(System.in);
 	private Boolean system = true;
+	private DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	
 	private FuncionarioRepository funcionarioRepository;
 	
@@ -36,13 +39,7 @@ public class RelatorioService {
 				relatorioNome(scanner);
 				break;
 			case 2:
-			//	atualizar(scanner);
-				break;
-			case 3:
-			//	visualizar();
-				break;
-			case 4:
-			//	deletar(scanner);
+				relatorioNomeDataContratacaoSalario(scanner);
 				break;
 			default:
 				system = false; 
@@ -55,6 +52,17 @@ public class RelatorioService {
 		System.out.println("Digite o nome para pesquisa; ");
 		String nome = scanner.next();
 		List<Funcionario> funcionario = funcionarioRepository.findByNome(nome);
+		funcionario.forEach(System.out::println);
+	}
+	
+	private void relatorioNomeDataContratacaoSalario(Scanner scanner) {
+		System.out.println("Digite o nome ; ");
+		String nome = scanner.next();
+		System.out.println("Digite o salario ; ");
+		Double salario= scanner.nextDouble();
+		System.out.println("Digite a data de contratacao ; ");
+		String data= scanner.next();
+		List<Funcionario> funcionario = funcionarioRepository.findNomeDataContratacaoSalarioMaior(nome, salario, LocalDate.parse(data,format));
 		funcionario.forEach(System.out::println);
 	}
 
