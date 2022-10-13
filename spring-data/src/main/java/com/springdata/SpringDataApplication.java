@@ -47,6 +47,7 @@ public class SpringDataApplication implements CommandLineRunner{
 			System.out.println("Digite - 1 : Adicionar um Cargo");
 			System.out.println("Digite - 2 : Adicionar um Funcionario");
 			System.out.println("Digite - 3 : Adicionar uma Unidade");
+			System.out.println("Digite - 4 : Ver Relatorios! ");
 			int action = scanner.nextInt();
 			
 			switch (action) {
