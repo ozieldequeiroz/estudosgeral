@@ -9,6 +9,12 @@ import com.springdata.orm.Unidade;
 import com.springdata.repository.CargoRepository;
 import com.springdata.repository.UnidadeRepository;
 
+/*
+insert into cargo values (1,'GERENTE')
+insert into cargo values (2,'Recursos Humanos')
+insert into cargo values (3,'Dev')
+*/
+
 @Service
 public class CrudUnidadeService {
 
