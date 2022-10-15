@@ -1,7 +1,9 @@
 package com.springdata.service;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -78,13 +80,14 @@ public class CrudFuncionarioService {
 		String cpf = scanner.next();
 		System.out.println("Salario do Funcionario");
 		Double salario = scanner.nextDouble();	
+		System.out.println("Digite o Id do Cargo");
+		Integer cargoid = scanner.nextInt();
+		Optional<Cargo> theCargo = cargoRepository.findById(cargoid);
 
-		cargos = takeCargo(scanner);
-		System.out.println("chegou aqui 2");
-		unidades = takeUnidade(scanner);
+		List<Unidade> unidades = takeUnidade(scanner);
 		
-		funcionario.setCargo(cargos);
-		funcionario.setUnidade(Arrays.asList(unidades));
+		funcionario.setCargo(theCargo.get());
+		funcionario.setUnidade(unidades);
 		funcionario.setNome(nome);
 		funcionario.setCpf(cpf);
 		funcionario.setSalario(salario);
@@ -130,24 +133,23 @@ public class CrudFuncionarioService {
 		funcionarioRepository.deleteById(id);	
 	}
 	
-	private Cargo takeCargo(Scanner scanner) {
+	private List<Unidade> takeUnidade(Scanner scanner) {
+        Boolean isTrue = true;
+        List<Unidade> unidades = new ArrayList<>();
 
-		System.out.println("Digite o Id do Cargo");
-		Integer cargoid = scanner.nextInt();
-		Optional<Cargo> theCargo = cargoRepository.findById(cargoid);
-		System.out.println("chegou aqui 1");
-		return theCargo.get();
-	}
-	private Unidade takeUnidade(Scanner scanner) {
-		Iterable<Unidade> unidade = unidadeRepository.findAll();
-		if (unidade.equals(null)) {
-			return null;
-		}
-		unidade.forEach(unidades->System.out.println(unidades));
-		System.out.println("Digite o Id da Unidade");
-		Integer unidadeId = scanner.nextInt();
-		Optional<Unidade> theUnidade = unidadeRepository.findById(unidadeId);
-		return theUnidade.get();
+        while (isTrue) {
+            System.out.println("Digite o unidadeId (Para sair digite 0)");
+            Integer unidadeId = scanner.nextInt();
+
+            if(unidadeId != 0) {
+                Optional<Unidade> unidade = unidadeRepository.findById(unidadeId);
+                unidades.add(unidade.get());
+            } else {
+                isTrue = false;
+            }
+        }
+
+        return unidades;
 	}
 	
 }
