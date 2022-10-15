@@ -88,6 +88,6 @@ public class Funcionario {
 	@Override
 	public String toString() {
 		return "Funcionario [ Id=" + Id + ", nome=" + nome + ", cpf=" + cpf + ", salario=" + salario
-				+ ", dataContratacao=" + dataContratacao + " ]";
+				+ ", dataContratacao=" + dataContratacao +cargo.toString()+ " ]";
 	}
 }

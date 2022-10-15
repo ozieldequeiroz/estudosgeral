@@ -5,6 +5,10 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.Scanner;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.springdata.orm.Cargo;
@@ -17,7 +21,6 @@ import com.springdata.repository.UnidadeRepository;
 @Service
 public class CrudFuncionarioService {
 	
-	private Funcionario funcionario = new Funcionario();
 	private Cargo cargos = new Cargo();
 	private Unidade unidades = new Unidade();
 	
@@ -55,7 +58,7 @@ public class CrudFuncionarioService {
 				atualizar(scanner);
 				break;
 			case 3:
-				visualizar();
+				visualizar(scanner);
 				break;
 			case 4:
 				deletar(scanner);
@@ -68,6 +71,7 @@ public class CrudFuncionarioService {
 	}
 	
 	private void salvar(Scanner scanner) {
+		Funcionario funcionario = new Funcionario();
 		System.out.println("Nome do Funcionario");
 		String nome = scanner.next();
 		System.out.println("CPF do Funcionario");
@@ -76,6 +80,7 @@ public class CrudFuncionarioService {
 		Double salario = scanner.nextDouble();	
 
 		cargos = takeCargo(scanner);
+		System.out.println("chegou aqui 2");
 		unidades = takeUnidade(scanner);
 		
 		funcionario.setCargo(cargos);
@@ -88,7 +93,7 @@ public class CrudFuncionarioService {
 	}
 	
 	private void atualizar(Scanner scanner) {
-		
+		Funcionario funcionario = new Funcionario();
 		System.out.println("Digite o Id do Funcionario");
 		int id= scanner.nextInt();
 		System.out.println("Digite o novo nome do Funcionario");
@@ -110,8 +115,12 @@ public class CrudFuncionarioService {
 		funcionarioRepository.save(funcionario);
 		System.out.println("Atualizado!");
 	}
-	private void visualizar() {
-		Iterable<Funcionario> funcionarios = funcionarioRepository.findAll();
+	private void visualizar(Scanner scanner) {
+		System.out.println("Digite o Id do Funcionario");
+		int page = scanner.nextInt();
+		Pageable pageable =  PageRequest.of(page, 5, Sort.unsorted());
+		
+		Page<Funcionario> funcionarios = funcionarioRepository.findAll(pageable);
 		funcionarios.forEach(funcionario->System.out.println(funcionario));
 	}
 	
@@ -122,16 +131,11 @@ public class CrudFuncionarioService {
 	}
 	
 	private Cargo takeCargo(Scanner scanner) {
-		System.out.println("chegou aqui 1");
-		Iterable<Cargo> cargo = cargoRepository.findAll();
-		if(cargo.equals(null)) {
-			return null;
-		}
-		System.out.println("chegou aqui 2");
-		cargo.forEach(cargos->System.out.println(cargos));
+
 		System.out.println("Digite o Id do Cargo");
 		Integer cargoid = scanner.nextInt();
 		Optional<Cargo> theCargo = cargoRepository.findById(cargoid);
+		System.out.println("chegou aqui 1");
 		return theCargo.get();
 	}
 	private Unidade takeUnidade(Scanner scanner) {
