@@ -25,7 +25,7 @@ public class Unidade {
 	private String endereco;
 	
 	public Unidade() {}
-	
+	 
 	@ManyToMany(mappedBy = "unidade",fetch = FetchType.EAGER)
 	List<Funcionario> funcionario;
 	
