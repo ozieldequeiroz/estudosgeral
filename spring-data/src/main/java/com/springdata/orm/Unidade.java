@@ -1,8 +1,7 @@
 package com.springdata.orm;
 
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,13 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name="unidade")
 public class Unidade {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer Id;
 	
 	private String descricao;
@@ -27,7 +25,7 @@ public class Unidade {
 	public Unidade() {}
 	 
 	@ManyToMany(mappedBy = "unidade",fetch = FetchType.EAGER)
-	List<Funcionario> funcionario;
+	private List<Funcionario> funcionario;
 	
 	public Integer getId() {
 		return Id;
@@ -47,9 +45,16 @@ public class Unidade {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
+		
+	public List<Funcionario> getFuncionario() {
+		return funcionario;
+	}
+	public void setFuncionario(List<Funcionario> funcionario) {
+		this.funcionario = funcionario;
+	}
 	@Override
 	public String toString() {
-		return "Unidade [Id=" + Id + ", descricao=" + descricao + ", endereco=" + endereco + "]";
+		return "Unidade [ Id=" + Id + ", descricao= " + descricao + ", endereco= " + endereco + " ]";
 	}
 
 		
