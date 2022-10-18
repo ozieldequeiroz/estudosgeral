@@ -135,6 +135,7 @@ public class CrudFuncionarioService {
 	}
 	
 	private List<Unidade> takeUnidade(Scanner scanner) {
+
         Boolean isTrue = true;
         List<Unidade> unidades = new ArrayList<>();
 

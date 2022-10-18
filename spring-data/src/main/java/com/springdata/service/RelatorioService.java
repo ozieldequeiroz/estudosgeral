@@ -32,6 +32,7 @@ public class RelatorioService {
 			System.out.println("Digite - 1 : Relatorio por nome");
 			System.out.println("Digite - 2 : Relatorio por data contratacao");
 			System.out.println("Digite - 3 : Relatorio por projecao");
+			System.out.println("Digite - 4 : Relatorio por Data de contratacao");
 			int action = scanner.nextInt();
 			
 			switch (action) {
@@ -46,6 +47,9 @@ public class RelatorioService {
 				break;
 			case 3:
 				funcionaSalario();
+				break;
+			case 4:
+				relatorioDataContratacao(scanner);
 				break;
 			default:
 				system = false; 
@@ -76,6 +80,14 @@ public class RelatorioService {
 		List<FuncionarioProjecao> list = funcionarioRepository.findSalarioMaior();
 		list.forEach(f->System.out.println("Funcionario " + " | Id "+ 
 					f.getId()+ " Nome "+ f.getNome() +" | Salario "+f.getSalario()));
+	}
+	
+	private void relatorioDataContratacao(Scanner scanner) {
+		System.out.println("Digite a data da contratacao: dd/MM/yyyy: ");
+		String data = scanner.next();
+		List<Funcionario> list = funcionarioRepository.findDataContracaoMaior(LocalDate.parse(data,format));
+		list.forEach(System.out::println);
+		
 	}
 
 

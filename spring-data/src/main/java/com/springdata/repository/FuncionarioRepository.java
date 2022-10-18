@@ -16,6 +16,7 @@ import com.springdata.orm.FuncionarioProjecao;
 public interface FuncionarioRepository extends PagingAndSortingRepository<Funcionario, Integer>{
 	
 	List<Funcionario> findByNome(String nome);
+	
 	@Query("SELECT f FROM Funcionario f WHERE f.nome = :nome and f.salario>= :salario AND f.dataContratacao=:data")
 	List<Funcionario> findNomeDataContratacaoSalarioMaior(String nome,Double salario,LocalDate data);
 	
