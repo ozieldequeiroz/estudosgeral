@@ -10,6 +10,7 @@ import com.springdata.orm.Cargo;
 import com.springdata.service.CrudCargoService;
 import com.springdata.service.CrudFuncionarioService;
 import com.springdata.service.CrudUnidadeService;
+import com.springdata.service.RelatorioFuncionarioDinamico;
 import com.springdata.service.RelatorioService;
 
 @SpringBootApplication
@@ -21,16 +22,19 @@ public class SpringDataApplication implements CommandLineRunner{
 	private final CrudFuncionarioService funcionarioService;
 	private final CrudUnidadeService unidadeService;
 	private final RelatorioService relatorioService;
+	private final RelatorioFuncionarioDinamico funcionarioDinamico;
 	
 	public SpringDataApplication(
 			CrudCargoService cargoRepository,
 			CrudFuncionarioService funcionarioService,
 			CrudUnidadeService unidadeService,
-			RelatorioService relatorioService) {
+			RelatorioService relatorioService,
+			RelatorioFuncionarioDinamico funcionarioDinamico) {
 		this.crudCargoService = cargoRepository;
 		this.funcionarioService=funcionarioService;
 		this.unidadeService=unidadeService;
 		this.relatorioService=relatorioService;
+		this.funcionarioDinamico=funcionarioDinamico;
 	}
 
 	public static void main(String[] args) {
@@ -48,6 +52,7 @@ public class SpringDataApplication implements CommandLineRunner{
 			System.out.println("Digite - 2 : Adicionar um Funcionario");
 			System.out.println("Digite - 3 : Adicionar uma Unidade");
 			System.out.println("Digite - 4 : Ver Relatorios! ");
+			System.out.println("Digite - 4 : Ver Relatorios Dinâmico ");
 			int action = scanner.nextInt();
 			
 			switch (action) {
@@ -64,6 +69,9 @@ public class SpringDataApplication implements CommandLineRunner{
 				break;
 			case 4:
 				relatorioService.iniciar(scanner);
+				break;
+			case 5:
+				funcionarioDinamico.inicial(scanner);
 				break;
 			default:
 				system = false;
