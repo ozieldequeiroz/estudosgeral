@@ -37,11 +37,10 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected UserDetailsService userDetailsService() {
-		
 		UserDetails annaSmithUser=User.builder()
 				.username("annasmith")
 				.password(passwordEncoder.encode("12345"))
-				.roles("STUDENT")
+				.roles("STUDENT")//
 				.build();
 		return new InMemoryUserDetailsManager(annaSmithUser);
 	}
