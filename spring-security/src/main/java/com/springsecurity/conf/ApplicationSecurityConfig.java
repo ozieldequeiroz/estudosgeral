@@ -32,7 +32,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 		.authenticated()
 		.and()
 		.httpBasic();
-		
 	}
 
 	@Override
@@ -44,12 +43,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 				.build();
 		return new InMemoryUserDetailsManager(annaSmithUser);
 	}
-	
-	
-	
-	
-	
-
 	
 
 }
