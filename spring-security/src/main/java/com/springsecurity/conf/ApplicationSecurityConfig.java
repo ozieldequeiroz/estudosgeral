@@ -3,12 +3,14 @@ package com.springsecurity.conf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
@@ -26,37 +28,26 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-		.authorizeHttpRequests()
-		.antMatchers("index").permitAll()
-		.antMatchers("api/*").hasRole(ApplicationUserRole.STUDENT.name())
+		.httpBasic()
+		.and()
+		.authorizeRequests()
 		.anyRequest()
 		.authenticated()
 		.and()
-		.httpBasic();
+		.csrf()
+		.disable();
 	}
 
 	@Override
-	@Bean
-	protected UserDetailsService userDetailsService() {
-		UserDetails annaSmithUser=User.builder()
-				.username("annasmith")
-				.password(passwordEncoder.encode("12345"))
-				.roles(ApplicationUserPermission.STUDENT_READ.name(),ApplicationUserPermission.STUDENT_WRITE.name())
-				.build();
-		
-		UserDetails lindauser=User.builder()
-				.username("linda")
-				.password(passwordEncoder.encode("senha123"))
-				.roles(ApplicationUserPermission.COURSE_READ.name(),ApplicationUserPermission.COURSE_WRITE.name())
-				.build();
-		
-		
-		return new InMemoryUserDetailsManager(annaSmithUser,lindauser);
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.inMemoryAuthentication()
+			.withUser("oziel")
+			.password(passwordEncoder().encode("12345"))
+			.roles("ADMIN");
 	}
 	
-	@Bean
-	protected UserDetailsService userDetailService() {
-		return super.userDetailsService();
+	public PasswordEncoder passwordEncoder(){
+		return new BCryptPasswordEncoder();
 	}
 
 }
