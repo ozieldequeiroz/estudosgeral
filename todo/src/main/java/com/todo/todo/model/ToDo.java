@@ -3,6 +3,7 @@ package com.todo.todo.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +25,7 @@ public class ToDo {
 	private Long id;
 
 	@Column
-	private String description;
+	private String task;
 	
 	@Column
 	private boolean done;
@@ -36,6 +37,11 @@ public class ToDo {
 	@Column
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private LocalDateTime doneDate;
+	
+	@Column
+	private Status status;
+	
+	private List<UpdateTaskDescription> updateDescription;
 
 	public Long getId() {
 		return id;
@@ -45,12 +51,12 @@ public class ToDo {
 		this.id = id;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getTask() {
+		return task;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setTask(String task) {
+		this.task = task;
 	}
 
 	public boolean isDone() {
