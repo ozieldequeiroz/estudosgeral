@@ -2,18 +2,17 @@ package com.todo.todo.controller;
 
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.server.handler.ResponseStatusExceptionHandler;
 
 import com.todo.todo.model.ToDo;
 import com.todo.todo.repository.ToDoRepository;
@@ -34,7 +33,7 @@ public class ToDoController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<ToDo> getById(@PathVariable Long id) {
+	public ResponseEntity<ToDo> getById(@PathVariable UUID id) {
 		
 		Optional<ToDo>todo= repository.findById(id);
 		
@@ -45,22 +44,19 @@ public class ToDoController {
 		}
 				
 	}
-	@PostMapping("/edit/{id}")
-	public ToDo edit(@PathVariable Long id) {
+	@PutMapping("/edit/{id}")
+	public ResponseEntity<ToDo> edit(@PathVariable UUID id,String newTask) {
 		ToDo updateToDo = new ToDo();
-		Optional<ToDo> todo; 
-		todo = repository.findById(id);
+		Optional<ToDo>todo = repository.findById(id);
 		
 		if(todo.isPresent()){
-			String newTask = input.next();
 			updateToDo.setId(id);
 			updateToDo.setTask(newTask);
 			repository.save(updateToDo);
-			return updateToDo;
+			return ResponseEntity.ok(updateToDo);
 		} else {
-			return  todo.orElseThrow();
+			return ResponseEntity.notFound().build();
 		}
-		
 	}
 
 }
