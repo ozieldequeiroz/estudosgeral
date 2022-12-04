@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.todo.todo.model.ToDo;
 import com.todo.todo.repository.ToDoRepository;
+import com.todo.todo.service.ToDoService;
 
 @RestController
 @RequestMapping("/api/todos")
@@ -26,9 +27,11 @@ public class ToDoController {
 	@Autowired
 	private ToDoRepository repository;
 	
+	private ToDoService toDoService;
+	
 	@PostMapping
 	public ResponseEntity<ToDo> save(@RequestBody ToDo toDo) {
-		repository.save(toDo);
+		toDoService.salvar(toDo);
 		return ResponseEntity.ok(toDo);
 	}
 	
