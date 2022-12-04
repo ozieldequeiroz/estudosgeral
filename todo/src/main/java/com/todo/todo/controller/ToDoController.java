@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.todo.todo.model.ToDo;
+import com.todo.todo.model.dto.ToDoDto;
 import com.todo.todo.repository.ToDoRepository;
 import com.todo.todo.service.ToDoService;
 
@@ -26,13 +28,12 @@ public class ToDoController {
 	
 	@Autowired
 	private ToDoRepository repository;
-	
+	@Autowired
 	private ToDoService toDoService;
 	
 	@PostMapping
-	public ResponseEntity<ToDo> save(@RequestBody ToDo toDo) {
-		toDoService.salvar(toDo);
-		return ResponseEntity.ok(toDo);
+	public ResponseEntity<ToDoDto> save(@RequestBody ToDo toDo) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(toDoService.salvar(toDo));
 	}
 	
 	@GetMapping("/{id}")

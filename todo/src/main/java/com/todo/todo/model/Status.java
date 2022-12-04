@@ -4,5 +4,6 @@ public enum Status {
 	BACKLOG,
 	PLANNING,
 	DOING,
+	CANCELED,
 	DONE
 }

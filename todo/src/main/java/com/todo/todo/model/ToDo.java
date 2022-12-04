@@ -64,6 +64,22 @@ public class ToDo implements Serializable {
 		return done;
 	}
 
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public List<UpdateTaskDescription> getUpdateDescription() {
+		return updateDescription;
+	}
+
+	public void setUpdateDescription(List<UpdateTaskDescription> updateDescription) {
+		this.updateDescription = updateDescription;
+	}
+
 	public void setDone(boolean done) {
 		this.done = done;
 	}
@@ -82,12 +98,6 @@ public class ToDo implements Serializable {
 
 	public void setDoneDate(LocalDateTime doneDate) {
 		this.doneDate = doneDate;
-	}
-	
-	@PrePersist
-	public void beforeSave() {
-		this.setCreatedDate(LocalDateTime.now());
-		
 	}
 	
 }
