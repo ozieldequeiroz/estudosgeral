@@ -99,5 +99,13 @@ public class ToDo implements Serializable {
 	public void setDoneDate(LocalDateTime doneDate) {
 		this.doneDate = doneDate;
 	}
+
+	@Override
+	public String toString() {
+		return "ToDo [id=" + id + ", task=" + task + ", done=" + done + ", createdDate=" + createdDate + ", doneDate="
+				+ doneDate + ", status=" + status + ", updateDescription=" + updateDescription + "]";
+	}
+	
+	
 	
 }
