@@ -37,12 +37,11 @@ public class ToDoController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<ToDo> getById(@PathVariable UUID id) {
-		
+	public ResponseEntity<ToDoDto> getById(@PathVariable UUID id) {
+		var doDto = new ToDoDto();
 		Optional<ToDo>todo= repository.findById(id);
-		
 		if (todo.isPresent()) {
-		return ResponseEntity.ok().body(todo.get());
+		return ResponseEntity.ok().body(doDto.convert(todo.get()));
 		} else {
 		return	ResponseEntity.notFound().build();
 		}

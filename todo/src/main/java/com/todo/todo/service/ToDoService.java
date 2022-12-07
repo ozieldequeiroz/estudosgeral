@@ -28,14 +28,18 @@ public class ToDoService {
 		todo.setCreatedDate(LocalDateTime.now());
 		todo.setDone(false);
 		todo.setStatus(Status.BACKLOG);
-		BeanUtils.copyProperties(todo, toDoDto);
+		toDoDto.convert(todo);
 		toDorepository.save(todo);
 		return toDoDto;
 	}
 	
-	public ToDo encontreDo(UUID id) {
-		Optional<ToDo>toDo= toDorepository.findById(id);
-		return toDo.get();
+	public ToDoDto encontreDo(UUID id) {
+		var doDto = new ToDoDto();
+		Optional<ToDo>toDo=toDorepository.findById(id);
+		if(toDo.isPresent()){
+			return	doDto.convert(toDo.get());
+		}
+		return null;
 	}
 	
 }

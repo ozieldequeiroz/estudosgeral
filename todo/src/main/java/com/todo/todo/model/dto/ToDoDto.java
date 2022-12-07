@@ -42,66 +42,46 @@ public class ToDoDto {
 		return task;
 	}
 
-
-
 	public void setTask(String task) {
 		this.task = task;
 	}
-
-
 
 	public boolean isDone() {
 		return done;
 	}
 
-
-
 	public void setDone(boolean done) {
 		this.done = done;
 	}
-
-
 
 	public LocalDateTime getCreatedDate() {
 		return createdDate;
 	}
 
-
-
 	public void setCreatedDate(LocalDateTime createdDate) {
 		this.createdDate = createdDate;
 	}
-
-
 
 	public LocalDateTime getDoneDate() {
 		return doneDate;
 	}
 
-
-
 	public void setDoneDate(LocalDateTime doneDate) {
 		this.doneDate = doneDate;
 	}
-
-
 
 	public Status getStatus() {
 		return status;
 	}
 
-
-
 	public void setStatus(Status status) {
 		this.status = status;
 	}
 
-
 	public ToDoDto convert(ToDo toDo) {
-		BeanUtils.copyProperties(toDo,this, "id");
-		return this;
+		var doDto = new ToDoDto();
+		BeanUtils.copyProperties(toDo,doDto);
+		return doDto;
 	}
 
-
-	
 }
