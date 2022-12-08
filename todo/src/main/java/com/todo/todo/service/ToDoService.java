@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,14 +24,20 @@ public class ToDoService {
 	}
 
 	@Transactional
-	public ToDoDto salvar(ToDo todo) {
+	public Object salvar(ToDo todo) {
+
 		ToDoDto toDoDto = new ToDoDto();
-		todo.setCreatedDate(LocalDateTime.now());
-		todo.setDone(false);
-		todo.setStatus(Status.BACKLOG);
-		toDoDto.convert(todo);
-		toDorepository.save(todo);
-		return toDoDto;
+		
+		if (toDorepository.count() > 0) {
+			return "Task já existe";
+		} else {
+			todo.setCreatedDate(LocalDateTime.now());
+			todo.setDone(false);
+			todo.setStatus(Status.BACKLOG);
+			toDorepository.save(todo);
+			return toDoDto.convert(todo);
+		}
+
 	}
 	
 	public ToDoDto encontreDo(UUID id) {

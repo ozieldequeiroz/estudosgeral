@@ -32,12 +32,12 @@ public class ToDoController {
 	private ToDoService toDoService;
 	
 	@PostMapping
-	public ResponseEntity<ToDoDto> save(@RequestBody ToDo toDo) {
+	public ResponseEntity<Object> save(@RequestBody ToDo toDo) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(toDoService.salvar(toDo));
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<ToDoDto> getById(@PathVariable UUID id) {
+	public ResponseEntity<ToDoDto> getById(@PathVariable(value = "id") UUID id) {
 		var doDto = new ToDoDto();
 		Optional<ToDo>todo= repository.findById(id);
 		if (todo.isPresent()) {
