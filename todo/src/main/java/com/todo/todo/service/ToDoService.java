@@ -1,6 +1,7 @@
 package com.todo.todo.service;
 
 import java.time.LocalDateTime;
+
 import java.util.Optional;
 import java.util.UUID;
 
@@ -25,7 +26,6 @@ public class ToDoService {
 
 	@Transactional
 	public Object salvar(ToDo todo) {
-
 		ToDoDto toDoDto = new ToDoDto();
 		
 		if (toDorepository.count() > 0) {
@@ -40,11 +40,14 @@ public class ToDoService {
 
 	}
 	
-	public ToDoDto encontreDo(UUID id) {
+	public ToDoDto findToDo(UUID id) {
+		System.out.println("SERVICE-STEP - 1"+id);
 		var doDto = new ToDoDto();
-		Optional<ToDo>toDo=toDorepository.findById(id);
+		Optional<ToDo>toDo=toDorepository.findById(id); 
+		System.out.println("SERVICE- STEP - 2"+toDo.toString());
 		if(toDo.isPresent()){
-			return	doDto.convert(toDo.get());
+			System.out.println("SERVICE- STEP - 3"+doDto.toString());
+			return doDto.convert(toDo.get());
 		}
 		return null;
 	}

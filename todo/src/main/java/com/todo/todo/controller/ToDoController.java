@@ -1,6 +1,7 @@
 package com.todo.todo.controller;
 
 import java.util.Optional;
+
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.todo.todo.model.ToDo;
@@ -32,16 +34,21 @@ public class ToDoController {
 	private ToDoService toDoService;
 	
 	@PostMapping
-	public ResponseEntity<Object> save(@RequestBody ToDo toDo) {
+	public ResponseEntity<Object> save(@RequestBody ToDo toDo) {		
 		return ResponseEntity.status(HttpStatus.CREATED).body(toDoService.salvar(toDo));
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<ToDoDto> getById(@PathVariable(value = "id") UUID id) {
-		var doDto = new ToDoDto();
-		Optional<ToDo>todo= repository.findById(id);
-		if (todo.isPresent()) {
-		return ResponseEntity.ok().body(doDto.convert(todo.get()));
+	public ResponseEntity<ToDoDto> getToDo(@PathVariable String id) {
+		//UUID.fromString(id);
+		
+		ToDoDto doDto = new ToDoDto();
+		doDto = toDoService.findToDo(UUID.fromString(id));
+		System.out.println("CONTROLLER- STEP - 1"+doDto.toString());
+		boolean exist = doDto.equals(null);
+		if (exist) {
+			System.out.println("CONTROLLER- STEP - 2"+doDto.toString());
+		return ResponseEntity.ok().body(doDto);
 		} else {
 		return	ResponseEntity.notFound().build();
 		}
