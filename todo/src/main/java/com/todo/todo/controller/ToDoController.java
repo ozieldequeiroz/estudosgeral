@@ -39,15 +39,11 @@ public class ToDoController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<ToDoDto> getToDo(@PathVariable String id) {
-		//UUID.fromString(id);
-		
+	public ResponseEntity<ToDoDto> getToDo(@PathVariable(value = "id") Long id) {
 		ToDoDto doDto = new ToDoDto();
-		doDto = toDoService.findToDo(UUID.fromString(id));
-		System.out.println("CONTROLLER- STEP - 1"+doDto.toString());
+		doDto = toDoService.findToDo(id);
 		boolean exist = doDto.equals(null);
 		if (exist) {
-			System.out.println("CONTROLLER- STEP - 2"+doDto.toString());
 		return ResponseEntity.ok().body(doDto);
 		} else {
 		return	ResponseEntity.notFound().build();
@@ -55,7 +51,7 @@ public class ToDoController {
 				
 	}
 	@PutMapping("/edit/{id}")
-	public ResponseEntity<ToDo> edit(@PathVariable UUID id,String newTask) {
+	public ResponseEntity<ToDo> edit(@RequestBody Long id,String newTask) {
 		ToDo updateToDo = new ToDo();
 		Optional<ToDo>todo = repository.findById(id);
 		

@@ -20,8 +20,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class ToDo implements Serializable {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private UUID id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private Long id;
 
 	@Column
 	private String task;
@@ -44,11 +44,11 @@ public class ToDo implements Serializable {
 	@JoinColumn(name = "to_do_id", nullable = false)
 	private List<UpdateTaskDescription> updateDescription;
 
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

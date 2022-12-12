@@ -39,8 +39,8 @@ public class ToDoService {
 		}
 
 	}
-	
-	public ToDoDto findToDo(UUID id) {
+	@Transactional
+	public ToDoDto findToDo(Long id) {
 		System.out.println("SERVICE-STEP - 1"+id);
 		var doDto = new ToDoDto();
 		Optional<ToDo>toDo=toDorepository.findById(id); 
