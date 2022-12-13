@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.todo.todo.model.ToDo;
+import com.todo.todo.model.dto.ToDoDto;
 
 @Repository
 public interface ToDoRepository extends JpaRepository<ToDo, Long>{
@@ -19,4 +20,5 @@ public interface ToDoRepository extends JpaRepository<ToDo, Long>{
 	Optional<ToDo> findByTask(String task);
 	
 
+	
 }

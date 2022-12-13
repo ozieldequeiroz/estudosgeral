@@ -41,11 +41,15 @@ public class ToDoController {
 	@GetMapping("/{id}")
 	public ResponseEntity<ToDoDto> getToDo(@PathVariable(value = "id") Long id) {
 		ToDoDto doDto = new ToDoDto();
+		System.out.println("CONTROLLER - 1 ");
 		doDto = toDoService.findToDo(id);
-		boolean exist = doDto.equals(null);
+
+		boolean exist = doDto.
 		if (exist) {
+			System.out.println("CONTROLLER - 2 ");
 		return ResponseEntity.ok().body(doDto);
 		} else {
+			System.out.println("CONTROLLER - 3 ");
 		return	ResponseEntity.notFound().build();
 		}
 				

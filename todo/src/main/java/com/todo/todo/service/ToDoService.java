@@ -27,28 +27,26 @@ public class ToDoService {
 	@Transactional
 	public Object salvar(ToDo todo) {
 		ToDoDto toDoDto = new ToDoDto();
+		todo.setCreatedDate(LocalDateTime.now());
+		todo.setDone(false);
+		todo.setStatus(Status.BACKLOG);
+		toDorepository.save(todo);
+		return toDoDto.convert(todo);
 		
-		if (toDorepository.count() > 0) {
-			return "Task já existe";
-		} else {
-			todo.setCreatedDate(LocalDateTime.now());
-			todo.setDone(false);
-			todo.setStatus(Status.BACKLOG);
-			toDorepository.save(todo);
-			return toDoDto.convert(todo);
-		}
 
 	}
 	@Transactional
 	public ToDoDto findToDo(Long id) {
-		System.out.println("SERVICE-STEP - 1"+id);
 		var doDto = new ToDoDto();
+		System.out.println("SERVICE - 1 ");
 		Optional<ToDo>toDo=toDorepository.findById(id); 
-		System.out.println("SERVICE- STEP - 2"+toDo.toString());
+		System.out.println("SERVICE - 2 ");
 		if(toDo.isPresent()){
-			System.out.println("SERVICE- STEP - 3"+doDto.toString());
+			System.out.println("SERVICE - 3 ");
+			System.out.println("SERVICE - 4 "+doDto.convert(toDo.get()));
 			return doDto.convert(toDo.get());
 		}
+		System.out.println("SERVICE - 4 ");
 		return null;
 	}
 	

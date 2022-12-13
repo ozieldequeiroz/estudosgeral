@@ -84,4 +84,10 @@ public class ToDoDto {
 		return doDto;
 	}
 
+	@Override
+	public String toString() {
+		return "ToDoDto [task=" + task + ", done=" + done + ", createdDate=" + createdDate + ", doneDate=" + doneDate
+				+ ", status=" + status + ", updateDescription=" + updateDescription + "]";
+	}
+	
 }
