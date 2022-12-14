@@ -39,33 +39,30 @@ public class ToDoController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<ToDoDto> getToDo(@PathVariable(value = "id") Long id) {
-		ToDoDto doDto = new ToDoDto();
-		System.out.println("CONTROLLER - 1 ");
-		doDto = toDoService.findToDo(id);
-
-		boolean exist = doDto.
-		if (exist) {
-			System.out.println("CONTROLLER - 2 ");
-		return ResponseEntity.ok().body(doDto);
+	public ResponseEntity<Object> getToDo(@PathVariable(value = "id") Long id) {
+	 Optional<ToDo> toDo= toDoService.findToDo(id);
+	 var toDoDto = new ToDoDto().convert(toDo.get());
+		if (toDo.isPresent()) {
+		return ResponseEntity.ok().body(toDoDto);
 		} else {
-			System.out.println("CONTROLLER - 3 ");
 		return	ResponseEntity.notFound().build();
 		}
 				
 	}
 	@PutMapping("/edit/{id}")
-	public ResponseEntity<ToDo> edit(@RequestBody Long id,String newTask) {
-		ToDo updateToDo = new ToDo();
-		Optional<ToDo>todo = repository.findById(id);
+	public ResponseEntity<Object> edit(@PathVariable(value = "id") Long id, @RequestBody ToDoDto doTdo) {
+	
+		Optional<ToDo>toDo = toDoService.findToDo(id);
 		
-		if(todo.isPresent()){
-			updateToDo.setId(id);
-			updateToDo.setTask(newTask);
-			repository.save(updateToDo);
-			return ResponseEntity.ok(updateToDo);
+		if(!toDo.isPresent()){
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} else {
-			return ResponseEntity.notFound().build();
+			toDo.get().setId(id);
+			toDo.get().setTask(doTdo.getTask());
+			toDo.get().setCreatedDate(doTdo.getCreatedDate());
+			toDo.get().setStatus(doTdo.getStatus());
+			repository.save(toDo.get());
+			return ResponseEntity.ok(doTdo);
 		}
 	}
 

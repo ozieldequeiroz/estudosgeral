@@ -32,21 +32,14 @@ public class ToDoService {
 		todo.setStatus(Status.BACKLOG);
 		toDorepository.save(todo);
 		return toDoDto.convert(todo);
-		
 
 	}
 	@Transactional
-	public ToDoDto findToDo(Long id) {
-		var doDto = new ToDoDto();
-		System.out.println("SERVICE - 1 ");
+	public Optional<ToDo> findToDo(Long id) {
 		Optional<ToDo>toDo=toDorepository.findById(id); 
-		System.out.println("SERVICE - 2 ");
 		if(toDo.isPresent()){
-			System.out.println("SERVICE - 3 ");
-			System.out.println("SERVICE - 4 "+doDto.convert(toDo.get()));
-			return doDto.convert(toDo.get());
+			return toDo;
 		}
-		System.out.println("SERVICE - 4 ");
 		return null;
 	}
 	

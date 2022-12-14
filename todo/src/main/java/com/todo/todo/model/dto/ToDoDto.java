@@ -2,6 +2,7 @@ package com.todo.todo.model.dto;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
@@ -78,10 +79,10 @@ public class ToDoDto {
 		this.status = status;
 	}
 
-	public ToDoDto convert(ToDo toDo) {
+	public Optional<ToDoDto> convert(ToDo toDo) {
 		var doDto = new ToDoDto();
 		BeanUtils.copyProperties(toDo,doDto);
-		return doDto;
+		return Optional.of(doDto);
 	}
 
 	@Override
