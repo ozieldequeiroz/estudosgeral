@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.todo.todo.model.Status;
 import com.todo.todo.model.ToDo;
 import com.todo.todo.model.dto.ToDoDto;
 import com.todo.todo.repository.ToDoRepository;
@@ -58,9 +59,14 @@ public class ToDoController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} else {
 			toDo.get().setId(id);
-			toDo.get().setTask(doTdo.getTask());
-			toDo.get().setCreatedDate(doTdo.getCreatedDate());
-			toDo.get().setStatus(doTdo.getStatus());
+			
+			if (!doTdo.getTask().isEmpty()) {
+				toDo.get().setTask(doTdo.getTask());	
+			}
+
+			if (doTdo.getStatus() != null) {
+				toDo.get().setStatus(doTdo.getStatus());
+			}
 			repository.save(toDo.get());
 			return ResponseEntity.ok(doTdo);
 		}
