@@ -53,21 +53,11 @@ public class ToDoController {
 	@PutMapping("/edit/{id}")
 	public ResponseEntity<Object> edit(@PathVariable(value = "id") Long id, @RequestBody ToDoDto doTdo) {
 	
-		Optional<ToDo>toDo = toDoService.findToDo(id);
+		Optional<ToDoDto>toDo = toDoService.editTask(id, doTdo);
 		
 		if(!toDo.isPresent()){
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} else {
-			toDo.get().setId(id);
-			
-			if (!doTdo.getTask().isEmpty()) {
-				toDo.get().setTask(doTdo.getTask());	
-			}
-
-			if (doTdo.getStatus() != null) {
-				toDo.get().setStatus(doTdo.getStatus());
-			}
-			repository.save(toDo.get());
 			return ResponseEntity.ok(doTdo);
 		}
 	}

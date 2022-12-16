@@ -7,6 +7,8 @@ import java.util.UUID;
 
 import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +43,26 @@ public class ToDoService {
 			return toDo;
 		}
 		return null;
+	}
+	
+	public Optional<ToDoDto> editTask(Long id, ToDoDto doTdo) {
+		Optional<ToDo>toDo = toDorepository.findById(id);
+		
+		if(!toDo.isPresent()){
+			return null;
+		} else {
+			toDo.get().setId(id);
+			
+			if (!doTdo.getTask().isEmpty()) {
+				toDo.get().setTask(doTdo.getTask());	
+			}
+
+			if (doTdo.getStatus() != null) {
+				toDo.get().setStatus(doTdo.getStatus());
+			}
+			toDorepository.save(toDo.get());
+			return new ToDoDto().convert(toDo.get());
+		}
 	}
 	
 }
