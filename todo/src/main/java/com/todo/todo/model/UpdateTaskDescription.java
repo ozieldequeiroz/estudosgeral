@@ -34,7 +34,7 @@ public class UpdateTaskDescription {
 	}
 
 	public void setUpdateDate(LocalDateTime updateDate) {
-		this.updateDate = updateDate;
+		this.updateDate = LocalDateTime.now();
 	}
 	
 }

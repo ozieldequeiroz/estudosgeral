@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.todo.todo.model.Status;
 import com.todo.todo.model.ToDo;
+import com.todo.todo.model.UpdateTaskDescription;
 import com.todo.todo.model.dto.ToDoDto;
 import com.todo.todo.repository.ToDoRepository;
 
@@ -62,6 +63,37 @@ public class ToDoService {
 			}
 			toDorepository.save(toDo.get());
 			return new ToDoDto().convert(toDo.get());
+		}
+	}
+	
+	
+	public UpdateTaskDescription addUpdate(Long id,String update) {
+		System.out.println("SERVICE - STEP 1"+id);
+		var updateTask = new UpdateTaskDescription();
+		Optional<ToDo>toDoAux = toDorepository.findById(id); 
+		System.out.println("SERVICE - STEP 2"+update);
+		updateTask.setUpdateDescription(update);
+		toDoAux.get().setUpdateDescription(updateTask);
+		return updateTask;
+		
+	}
+
+	@Transactional
+	public void addUpdateTask(Long id, String updateTask) {
+		Optional<ToDo>toDoAux = toDorepository.findById(id); 
+			if(!toDoAux.isPresent()){
+				//return null;
+			} else {
+				toDoAux.get().setUpdateDescription(null);
+		}
+	}
+	
+	public boolean exist(Long id) {
+	 boolean exist = toDorepository.existsById(id);
+		 if (!exist) {
+			return exist;
+		} else {
+			return exist;
 		}
 	}
 	

@@ -71,13 +71,13 @@ public class ToDo implements Serializable {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
+	/*
+	public List<UpdateTaskDescription> getUpdateDescription(UpdateTaskDescription updateDescription) {
+		return updateDescription.forEach(task-> System.out.println(task));
+	}*/
 
-	public List<UpdateTaskDescription> getUpdateDescription() {
-		return updateDescription;
-	}
-
-	public void setUpdateDescription(List<UpdateTaskDescription> updateDescription) {
-		this.updateDescription = updateDescription;
+	public void setUpdateDescription(UpdateTaskDescription taskUpdate) {
+		this.updateDescription.add(taskUpdate);
 	}
 
 	public void setDone(boolean done) {
