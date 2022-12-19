@@ -29,6 +29,7 @@ public class ToDoService {
 
 	@Transactional
 	public Object salvar(ToDo todo) {
+		System.out.println("SERVICE - salvar - STEP 1");
 		ToDoDto toDoDto = new ToDoDto();
 		todo.setCreatedDate(LocalDateTime.now());
 		todo.setDone(false);
@@ -39,6 +40,7 @@ public class ToDoService {
 	}
 	@Transactional
 	public Optional<ToDo> findToDo(Long id) {
+		System.out.println("SERVICE - findToDo - STEP 1"+id);
 		Optional<ToDo>toDo=toDorepository.findById(id); 
 		if(toDo.isPresent()){
 			return toDo;
@@ -66,14 +68,17 @@ public class ToDoService {
 		}
 	}
 	
-	
+	@Transactional
 	public UpdateTaskDescription addUpdate(Long id,String update) {
-		System.out.println("SERVICE - STEP 1"+id);
+		System.out.println("SERVICE - STEP 1 -"+id);
 		var updateTask = new UpdateTaskDescription();
 		Optional<ToDo>toDoAux = toDorepository.findById(id); 
-		System.out.println("SERVICE - STEP 2"+update);
+		System.out.println("SERVICE - STEP 2 -"+update);
 		updateTask.setUpdateDescription(update);
+		System.out.println("SERVICE - STEP 3 -");
 		toDoAux.get().setUpdateDescription(updateTask);
+		System.out.println("SERVICE - STEP 4 -"+updateTask.toString());
+		toDorepository.save(toDoAux.get());
 		return updateTask;
 		
 	}

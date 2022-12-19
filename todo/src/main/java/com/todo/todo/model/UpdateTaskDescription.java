@@ -36,5 +36,10 @@ public class UpdateTaskDescription {
 	public void setUpdateDate(LocalDateTime updateDate) {
 		this.updateDate = LocalDateTime.now();
 	}
+
+	@Override
+	public String toString() {
+		return "UpdateTaskDescription [updateDescription=" + updateDescription + ", updateDate=" + updateDate + "]";
+	}
 	
 }
