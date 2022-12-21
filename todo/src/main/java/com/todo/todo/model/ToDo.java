@@ -3,8 +3,8 @@ package com.todo.todo.model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -40,7 +39,7 @@ public class ToDo implements Serializable {
 	@Column
 	private Status status;
 	
-	@OneToMany
+	@OneToMany(cascade=CascadeType.PERSIST)
 	@JoinColumn(name = "to_do_id", nullable = false)
 	private List<UpdateTaskDescription> updateDescription;
 
@@ -77,6 +76,7 @@ public class ToDo implements Serializable {
 	}*/
 
 	public void setUpdateDescription(UpdateTaskDescription taskUpdate) {
+		System.out.println("MODEL - 1 ");
 		this.updateDescription.add(taskUpdate);
 	}
 

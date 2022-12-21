@@ -68,16 +68,16 @@ public class ToDoService {
 		}
 	}
 	
-	@Transactional
-	public UpdateTaskDescription addUpdate(Long id,String update) {
+	public UpdateTaskDescription addUpdate(Long id,UpdateTaskDescription update) {
 		System.out.println("SERVICE - STEP 1 -"+id);
 		var updateTask = new UpdateTaskDescription();
 		Optional<ToDo>toDoAux = toDorepository.findById(id); 
 		System.out.println("SERVICE - STEP 2 -"+update);
-		updateTask.setUpdateDescription(update);
-		System.out.println("SERVICE - STEP 3 -");
+		updateTask.setUpdateDescription(update.getUpdateDescription());
+		System.out.println("SERVICE - STEP 3 -"+update.getUpdateDescription());
 		toDoAux.get().setUpdateDescription(updateTask);
 		System.out.println("SERVICE - STEP 4 -"+updateTask.toString());
+		System.out.println("SERVICE - STEP 5 -"+toDoAux.toString());
 		toDorepository.save(toDoAux.get());
 		return updateTask;
 		

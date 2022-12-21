@@ -8,10 +8,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class UpdateTaskDescription {
 		
 	public UpdateTaskDescription() {
+		this.updateDate=LocalDateTime.now();
 	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,6 +22,7 @@ public class UpdateTaskDescription {
 	@Column
 	private String updateDescription;
 	@Column
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private LocalDateTime updateDate;
 
 	public String getUpdateDescription() {
@@ -33,9 +37,6 @@ public class UpdateTaskDescription {
 		return updateDate;
 	}
 
-	public void setUpdateDate(LocalDateTime updateDate) {
-		this.updateDate = LocalDateTime.now();
-	}
 
 	@Override
 	public String toString() {
