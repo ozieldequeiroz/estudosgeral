@@ -70,21 +70,20 @@ public class ToDoService {
 	
 	public UpdateTaskDescription addUpdate(Long id,UpdateTaskDescription update) {
 		System.out.println("SERVICE - STEP 1 -"+id);
-		var updateTask = new UpdateTaskDescription();
 		Optional<ToDo>toDoAux = toDorepository.findById(id); 
-		System.out.println("SERVICE - STEP 2 -"+update);
-		updateTask.setUpdateDescription(update.getUpdateDescription());
-		System.out.println("SERVICE - STEP 3 -"+update.getUpdateDescription());
-		toDoAux.get().setUpdateDescription(updateTask);
-		System.out.println("SERVICE - STEP 4 -"+updateTask.toString());
-		System.out.println("SERVICE - STEP 5 -"+toDoAux.toString());
+		System.out.println("SERVICE - STEP 2 -"+update.getUpdateDescription());
+		//updateTask.setUpdateDescription(update.getUpdateDescription());
+		toDoAux.get().setUpdateDescription(update);
+		System.out.println("SERVICE - STEP 3 -"+toDoAux.get().getUpdateDescription());
+		System.out.println("SERVICE - STEP 4 -"+toDoAux.toString());
 		toDorepository.save(toDoAux.get());
-		return updateTask;
+		System.out.println("SERVICE - STEP 5 -"+toDoAux.toString());
+		return update;
 		
 	}
 
 	@Transactional
-	public void addUpdateTask(Long id, String updateTask) {
+	public void addUpdateTask(Long id, UpdateTaskDescription updateTask) {
 		Optional<ToDo>toDoAux = toDorepository.findById(id); 
 			if(!toDoAux.isPresent()){
 				//return null;

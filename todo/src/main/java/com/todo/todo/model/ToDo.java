@@ -2,6 +2,8 @@ package com.todo.todo.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -41,7 +43,7 @@ public class ToDo implements Serializable {
 	
 	@OneToMany(cascade=CascadeType.PERSIST)
 	@JoinColumn(name = "to_do_id", nullable = false)
-	private List<UpdateTaskDescription> updateDescription;
+	private List<UpdateTaskDescription> updateDescription = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -70,14 +72,18 @@ public class ToDo implements Serializable {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-	/*
-	public List<UpdateTaskDescription> getUpdateDescription(UpdateTaskDescription updateDescription) {
-		return updateDescription.forEach(task-> System.out.println(task));
-	}*/
+	
+	public List<UpdateTaskDescription> getUpdateDescription() {
+		return updateDescription;
+	}
 
 	public void setUpdateDescription(UpdateTaskDescription taskUpdate) {
-		System.out.println("MODEL - 1 ");
+		System.out.println("MODEL - 1 "+taskUpdate.toString());
 		this.updateDescription.add(taskUpdate);
+		System.out.println("MODEL - 2 ");
+		updateDescription.forEach(t-> System.out.println(t.toString()));
+		System.out.println("MODEL - 3 ");
+		//return taskUpdate;
 	}
 
 	public void setDone(boolean done) {
