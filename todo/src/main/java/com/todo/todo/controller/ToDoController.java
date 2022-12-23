@@ -1,7 +1,6 @@
 package com.todo.todo.controller;
 
 import java.util.Optional;
-import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,10 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.todo.todo.model.ToDo;
@@ -25,13 +22,12 @@ import com.todo.todo.service.ToDoService;
 @RequestMapping("/api/todos")
 public class ToDoController {
 	
-	Scanner input = new Scanner(System.in);
-	
 	@Autowired
 	private ToDoService toDoService;
 	
 	@PostMapping
-	public ResponseEntity<Object> save(@RequestBody ToDo toDo) {		
+	public ResponseEntity<Object> save(@RequestBody ToDo toDo) {	
+		System.out.println("CONTROLLER - STEP 1 "+toDo.toString());
 		return ResponseEntity.status(HttpStatus.CREATED).body(toDoService.salvar(toDo));
 	}
 	

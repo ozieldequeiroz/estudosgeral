@@ -14,11 +14,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 public class UpdateTaskDescription implements Serializable{
 		
+	private static final long serialVersionUID = 1L;
+
 	public UpdateTaskDescription() {
 		this.updateDate=LocalDateTime.now();
 	}
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long Id;
 	@Column
 	private String updateDescription;
@@ -41,7 +43,7 @@ public class UpdateTaskDescription implements Serializable{
 
 	@Override
 	public String toString() {
-		return "UpdateTaskDescription [updateDescription=" + updateDescription + ", updateDate=" + updateDate + "]";
+		return "UpdateTaskDescription " + updateDescription + ", " + updateDate + "]";
 	}
 	
 }

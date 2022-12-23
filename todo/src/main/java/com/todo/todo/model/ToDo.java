@@ -20,8 +20,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 public class ToDo implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@Column
@@ -41,7 +43,7 @@ public class ToDo implements Serializable {
 	@Column
 	private Status status;
 	
-	@OneToMany(cascade=CascadeType.PERSIST)
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name = "to_do_id", nullable = false)
 	private List<UpdateTaskDescription> updateDescription = new ArrayList<>();
 
@@ -77,13 +79,8 @@ public class ToDo implements Serializable {
 		return updateDescription;
 	}
 
-	public void setUpdateDescription(UpdateTaskDescription taskUpdate) {
-		System.out.println("MODEL - 1 "+taskUpdate.toString());
-		this.updateDescription.add(taskUpdate);
-		System.out.println("MODEL - 2 ");
-		updateDescription.forEach(t-> System.out.println(t.toString()));
-		System.out.println("MODEL - 3 ");
-		//return taskUpdate;
+	public void setUpdateDescription(List<UpdateTaskDescription> updateDescription) {
+		this.updateDescription = updateDescription;
 	}
 
 	public void setDone(boolean done) {
@@ -108,8 +105,8 @@ public class ToDo implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ToDo [id=" + id + ", task=" + task + ", done=" + done + ", createdDate=" + createdDate + ", doneDate="
-				+ doneDate + ", status=" + status + ", updateDescription=" + updateDescription + "]";
+		return "MODEL TO STRING-[" + id + "#" + task + "#" + done + "#" + createdDate + "#"
+				+ doneDate + "#" + status + "#"+ updateDescription + "]";
 	}
 	
 	

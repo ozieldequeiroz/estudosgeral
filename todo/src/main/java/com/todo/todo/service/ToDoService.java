@@ -1,7 +1,7 @@
 package com.todo.todo.service;
 
 import java.time.LocalDateTime;
-
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -29,7 +29,6 @@ public class ToDoService {
 
 	@Transactional
 	public Object salvar(ToDo todo) {
-		System.out.println("SERVICE - salvar - STEP 1");
 		ToDoDto toDoDto = new ToDoDto();
 		todo.setCreatedDate(LocalDateTime.now());
 		todo.setDone(false);
@@ -40,7 +39,6 @@ public class ToDoService {
 	}
 	@Transactional
 	public Optional<ToDo> findToDo(Long id) {
-		System.out.println("SERVICE - findToDo - STEP 1"+id);
 		Optional<ToDo>toDo=toDorepository.findById(id); 
 		if(toDo.isPresent()){
 			return toDo;
@@ -48,6 +46,7 @@ public class ToDoService {
 		return null;
 	}
 	
+	@Transactional
 	public Optional<ToDoDto> editTask(Long id, ToDoDto doTdo) {
 		Optional<ToDo>toDo = toDorepository.findById(id);
 		
@@ -68,16 +67,14 @@ public class ToDoService {
 		}
 	}
 	
+	@Transactional
 	public UpdateTaskDescription addUpdate(Long id,UpdateTaskDescription update) {
-		System.out.println("SERVICE - STEP 1 -"+id);
+		ToDo updateToDo = new ToDo();
+
 		Optional<ToDo>toDoAux = toDorepository.findById(id); 
-		System.out.println("SERVICE - STEP 2 -"+update.getUpdateDescription());
-		//updateTask.setUpdateDescription(update.getUpdateDescription());
-		toDoAux.get().setUpdateDescription(update);
-		System.out.println("SERVICE - STEP 3 -"+toDoAux.get().getUpdateDescription());
-		System.out.println("SERVICE - STEP 4 -"+toDoAux.toString());
-		toDorepository.save(toDoAux.get());
-		System.out.println("SERVICE - STEP 5 -"+toDoAux.toString());
+		BeanUtils.copyProperties(toDoAux.get(),updateToDo);
+		updateToDo.setUpdateDescription(Arrays.asList(update));
+		toDorepository.save(updateToDo);
 		return update;
 		
 	}
