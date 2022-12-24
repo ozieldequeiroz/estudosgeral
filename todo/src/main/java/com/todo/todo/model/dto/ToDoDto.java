@@ -85,6 +85,14 @@ public class ToDoDto {
 		return Optional.of(doDto);
 	}
 
+	public List<UpdateTaskDescription> getUpdateDescription() {
+		return updateDescription;
+	}
+
+	public void setUpdateDescription(List<UpdateTaskDescription> updateDescription) {
+		this.updateDescription = updateDescription;
+	}
+
 	@Override
 	public String toString() {
 		return "ToDoDto [task=" + task + ", done=" + done + ", createdDate=" + createdDate + ", doneDate=" + doneDate

@@ -27,7 +27,6 @@ public class ToDoController {
 	
 	@PostMapping
 	public ResponseEntity<Object> save(@RequestBody ToDo toDo) {	
-		System.out.println("CONTROLLER - STEP 1 "+toDo.toString());
 		return ResponseEntity.status(HttpStatus.CREATED).body(toDoService.salvar(toDo));
 	}
 	
@@ -50,7 +49,7 @@ public class ToDoController {
 		if(!exit){
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} else {
-			return ResponseEntity.ok(doTdo);
+			return ResponseEntity.ok(toDoService.editTask(id, doTdo));
 		}
 	}
 	
