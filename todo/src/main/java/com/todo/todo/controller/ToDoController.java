@@ -42,14 +42,14 @@ public class ToDoController {
 				
 	}
 	@PutMapping("/edit/{id}")
-	public ResponseEntity<Object> edit(@PathVariable(value = "id") Long id, @RequestBody ToDoDto doTdo) {
-		System.out.println("CONTROLLER - STEP 1 "+doTdo.toString());
+	public ResponseEntity<Object> edit(@PathVariable(value = "id") Long id, @RequestBody ToDoDto toDoDto) {
+		System.out.println("CONTROLLER - STEP 1 ");
 		boolean  exit = toDoService.exist(id);
 		
 		if(!exit){
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} else {
-			return ResponseEntity.ok(toDoService.editTask(id, doTdo));
+			return ResponseEntity.ok(toDoService.editTask(id, toDoDto));
 		}
 	}
 	

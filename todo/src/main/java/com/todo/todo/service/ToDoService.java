@@ -47,23 +47,26 @@ public class ToDoService {
 	}
 	
 	@Transactional
-	public Optional<ToDoDto> editTask(Long id, ToDoDto doTdo) {
-		Optional<ToDo>toDo = toDorepository.findById(id);
-		
-		if(!toDo.isPresent()){
+	public Optional<ToDoDto> editTask(Long id, ToDoDto doDto) {
+		System.out.println("SERVICE - STEP 1 "+doDto);
+		var auxToDo = new ToDo();
+		boolean exist = toDorepository.existsById(id);
+	
+		if(!exist){
 			return null;
 		} else {
-			toDo.get().setId(id);
 			
-			if (!doTdo.getTask().isEmpty()) {
-				toDo.get().setTask(doTdo.getTask());	
+			if (!doDto.getTask().isBlank()) {
+				System.out.println("SERVICE - STEP 2 DENTRO DO IF "+doDto.getTask());
+				auxToDo.setTask(doDto.getTask());	
 			}
-
-			if (doTdo.getStatus() != null) {
-				toDo.get().setStatus(doTdo.getStatus());
+			if (doDto.getStatus() != null ) {
+				auxToDo.setStatus(doDto.getStatus());	
 			}
-			toDorepository.save(toDo.get());
-			return new ToDoDto().convert(toDo.get());
+			
+			auxToDo.setId(id);
+			toDorepository.save(auxToDo);
+			return new ToDoDto().convert(auxToDo);
 		}
 	}
 	
