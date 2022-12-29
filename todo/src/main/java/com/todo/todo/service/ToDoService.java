@@ -49,23 +49,23 @@ public class ToDoService {
 	@Transactional
 	public Optional<ToDoDto> editTask(Long id, ToDoDto doDto) {
 	   Optional<ToDo> auxToDo = toDorepository.findById(id) ;
-	   	System.out.println("SERVICE - STEP 1");
-		if(auxToDo.isPresent()){
+	   var returnDto = new ToDoDto();
+		if(!auxToDo.isPresent()){
 			return null;
 		} else {
-			
 			if (!doDto.getTask().isBlank()) {
 				auxToDo.get().setTask(doDto.getTask());	
 			}
 			if (doDto.getStatus() != null ) {
+				if (doDto.getStatus() == Status.DONE) {
+					auxToDo.get().setDoneDate(LocalDateTime.now());
+				}
 				auxToDo.get().setStatus(doDto.getStatus());	
 			}
-			
 			auxToDo.get().setId(id);
 			toDorepository.save(auxToDo.get());
-			System.out.println("SERVICE - STEP 2");
 			System.out.println(auxToDo.get());
-			return new ToDoDto().convert(auxToDo.get());
+			return returnDto.convert(auxToDo.get());
 		}
 	}
 	

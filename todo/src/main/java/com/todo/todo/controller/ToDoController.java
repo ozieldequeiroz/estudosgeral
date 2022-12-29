@@ -2,6 +2,8 @@ package com.todo.todo.controller;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,27 +44,24 @@ public class ToDoController {
 				
 	}
 	@PutMapping("/edit/{id}")
-	public ResponseEntity<Object> edit(@PathVariable(value = "id") Long id, @RequestBody ToDoDto toDoDto) {
-		System.out.println("CONTROLLER - STEP 1 ");
+	public ResponseEntity<Object> edit(@PathVariable(value = "id") Long id, @RequestBody @Valid ToDoDto toDoDto) {
 		boolean  exit = toDoService.exist(id);
 		
 		if(!exit){
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} else {
-			return ResponseEntity.ok(toDoService.editTask(id, toDoDto));
+			return ResponseEntity.ok(toDoService.editTask(id,toDoDto));
 		}
 	}
 	
 	@PostMapping("/update/{id}")
 	public ResponseEntity<Object> update(@PathVariable(value = "id") Long id,@RequestBody UpdateTaskDescription update) {
 		Optional<ToDo> toDo= toDoService.findToDo(id);
-		System.out.println("CONTROLLER - STEP 1 "+toDo.toString());
 		
 		if(!toDo.isPresent()){
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} else {
 			
-			System.out.println("CONTROLLER - STEP 2 "+update);
 			var updateTask = new UpdateTaskDescription();
 			updateTask = toDoService.addUpdate(id, update);
 			return ResponseEntity.status(HttpStatus.CREATED).body(updateTask);

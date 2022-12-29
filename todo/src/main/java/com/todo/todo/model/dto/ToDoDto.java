@@ -7,7 +7,9 @@ import java.util.Optional;
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.BeanUtils;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -19,6 +21,7 @@ import com.todo.todo.model.UpdateTaskDescription;
 public class ToDoDto {
 	
 	@Column
+	@NotNull
 	private String task;
 	
 	@Column
