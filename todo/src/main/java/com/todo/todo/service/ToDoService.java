@@ -82,12 +82,14 @@ public class ToDoService {
 	}
 
 	@Transactional
-	public void addUpdateTask(Long id, UpdateTaskDescription updateTask) {
+	public Object updateStatus(Long id, Status status) {
 		Optional<ToDo>toDoAux = toDorepository.findById(id); 
 			if(!toDoAux.isPresent()){
-				//return null;
+				return null;
 			} else {
-				toDoAux.get().setUpdateDescription(null);
+				toDoAux.get().setStatus(status);
+				toDorepository.save(toDoAux.get());
+				return ResponseEntity.status(HttpStatus.UPGRADE_REQUIRED).build();
 		}
 	}
 	

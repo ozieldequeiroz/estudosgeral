@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.todo.todo.model.Status;
 import com.todo.todo.model.ToDo;
 import com.todo.todo.model.UpdateTaskDescription;
 import com.todo.todo.model.dto.ToDoDto;
@@ -54,6 +55,8 @@ public class ToDoController {
 		}
 	}
 	
+	
+	
 	@PostMapping("/update/{id}")
 	public ResponseEntity<Object> update(@PathVariable(value = "id") Long id,@RequestBody UpdateTaskDescription update) {
 		Optional<ToDo> toDo= toDoService.findToDo(id);
@@ -65,6 +68,18 @@ public class ToDoController {
 			var updateTask = new UpdateTaskDescription();
 			updateTask = toDoService.addUpdate(id, update);
 			return ResponseEntity.status(HttpStatus.CREATED).body(updateTask);
+		}
+	}
+	
+	@PostMapping("/update/status/{id}")
+	public ResponseEntity<Object> updateStatus(@PathVariable(value = "id") Long id,@RequestBody Status status) {
+		Optional<ToDo> toDo= toDoService.findToDo(id);
+		
+		if(!toDo.isPresent()){
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		} else {
+			toDoService.updateStatus(id, status); 
+			return ResponseEntity.status(HttpStatus.CREATED).build();
 		}
 	}
 	
