@@ -44,6 +44,7 @@ public class ToDoController {
 		}
 				
 	}
+	
 	@PutMapping("/edit/{id}")
 	public ResponseEntity<Object> edit(@PathVariable(value = "id") Long id, @RequestBody @Valid ToDoDto toDoDto) {
 		boolean  exit = toDoService.exist(id);
@@ -54,8 +55,6 @@ public class ToDoController {
 			return ResponseEntity.ok(toDoService.editTask(id,toDoDto));
 		}
 	}
-	
-	
 	
 	@PostMapping("/update/{id}")
 	public ResponseEntity<Object> update(@PathVariable(value = "id") Long id,@RequestBody UpdateTaskDescription update) {
@@ -83,5 +82,4 @@ public class ToDoController {
 		}
 	}
 	
-
 }
