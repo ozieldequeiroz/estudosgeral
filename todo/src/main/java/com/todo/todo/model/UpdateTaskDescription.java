@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-public class UpdateTaskDescription implements Serializable{
+public class UpdateTaskDescription implements Serializable {
 		
 	private static final long serialVersionUID = 1L;
 
