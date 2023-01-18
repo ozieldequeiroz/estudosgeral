@@ -16,18 +16,18 @@ public class WebSecurityConfig {
 			.httpBasic()
 			.and()
 			.authorizeHttpRequests()
-			.anyRequest()
-			.permitAll();
-			//.anyRequest().authenticated()
-			//.and()
-			//.csrf().disable();
+			//.anyRequest()
+			//.permitAll();
+			.anyRequest().authenticated()
+			.and()
+			.csrf().disable();
 		
 		return http.build();
 	}
-	
+	/*
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
-	}
+	}*/
 
 }
