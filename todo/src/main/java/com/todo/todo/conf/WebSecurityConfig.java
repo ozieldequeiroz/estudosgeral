@@ -17,8 +17,8 @@ public class WebSecurityConfig {
 			.httpBasic()
 			.and()
 			.authorizeHttpRequests()
-			.antMatchers(HttpMethod.GET,"api/todos").permitAll()
-			.antMatchers(HttpMethod.POST,"api/todos/**").hasRole("USER")
+			.antMatchers(HttpMethod.POST,"api/todos").permitAll()
+			.antMatchers(HttpMethod.GET,"api/todos/**").hasRole("USER")
 			//.anyRequest()
 			//.permitAll();
 			.anyRequest().authenticated()
@@ -27,10 +27,10 @@ public class WebSecurityConfig {
 		
 		return http.build();
 	}
-	/*
+	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
-	}*/
+	}
 
 }
