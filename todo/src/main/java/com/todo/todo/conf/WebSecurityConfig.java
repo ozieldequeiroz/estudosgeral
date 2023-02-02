@@ -17,8 +17,9 @@ public class WebSecurityConfig {
 			.httpBasic()
 			.and()
 			.authorizeHttpRequests()
-			.antMatchers(HttpMethod.POST,"api/todos").permitAll()
+			.antMatchers(HttpMethod.POST,"api/todos").hasRole("ADMIN")
 			.antMatchers(HttpMethod.GET,"api/todos/**").hasRole("USER")
+			.antMatchers(HttpMethod.POST,"api/todos/update").hasRole("USER")
 			//.anyRequest()
 			//.permitAll();
 			.anyRequest().authenticated()
