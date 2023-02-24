@@ -7,16 +7,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 @Component
-public class JwtAuthFilter extends OncePerRequestFilter{
+public class JwtAuthFilter extends OncePerRequestFilter, implements UserDetailsService{
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -29,13 +29,20 @@ public class JwtAuthFilter extends OncePerRequestFilter{
 			filterChain.doFilter(request, response);
 			return;
 		}
+		jwtToken = authHeader.substring(7);
+		userEmail = "algo@mail";
 		if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-			UserDetails userDetails = UserDetailsService.loadUserByUserName(userEmail);
-			final boolean isTokenValid;			
+			UserDetails userDetails = userDetailsService.loadUserByUsername(userEmail);
+			final boolean isTokenValid= false;			
 		}
 		if (isTokenValid) {
 			
-			UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken();
+			UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+					userDetails,null,userDetails.
+					authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request)));
+			SecurityContextHolder.getContext().setAuthentication(authToken);
+					);
+			
 			
 		}
 		
