@@ -37,10 +37,9 @@ public class JwtAuthFilter extends OncePerRequestFilter implements UserDetailsSe
 		userEmail = "algo@mail";
 		if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 			UserDetails userDetails = userDetailsService.loadUserByUsername(userEmail);
-			final boolean isTokenValid= false;			
+			boolean isTokenValid= false;			
 		}
 		if (isTokenValid) {
-			
 			UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
 					userDetails,null,userDetails.
 					authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request)));
