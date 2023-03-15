@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="spring-data/src/main/java"/>
+	<classpathentry kind="src" path="spring-data/src/test/java"/>
+	<classpathentry kind="src" path="spring-security/src/main/java"/>
+	<classpathentry kind="src" path="spring-security/src/test/java"/>
+	<classpathentry kind="src" path="todo/src/main/java"/>
+	<classpathentry kind="src" path="todo/src/test/java"/>
+	<classpathentry kind="lib" path="spring-data/.mvn/wrapper/maven-wrapper.jar"/>
+	<classpathentry kind="lib" path="spring-security/.mvn/wrapper/maven-wrapper.jar"/>
+	<classpathentry kind="lib" path="todo/.mvn/wrapper/maven-wrapper.jar"/>
+	<classpathentry kind="output" path="spring-data/target/classes"/>
+</classpath>

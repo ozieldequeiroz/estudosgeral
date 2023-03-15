@@ -1,0 +1,9 @@
+/**
+ * 
+ */
+/**
+ * @author oziel
+ *
+ */
+module generalstudyjava {
+}
