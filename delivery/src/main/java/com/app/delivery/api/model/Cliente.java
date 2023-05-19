@@ -1,4 +1,4 @@
-package com.app.delivery.domain.model;
+package com.app.delivery.api.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

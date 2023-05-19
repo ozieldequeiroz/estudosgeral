@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.delivery.domain.model.Cliente;
+import com.app.delivery.api.model.Cliente;
 
 @RestController
 public class ClienteController {
