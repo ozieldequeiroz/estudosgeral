@@ -11,6 +11,8 @@ import com.app.delivery.api.model.Cliente;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente,Long> {
 	
-	List<Cliente>findByName(String nome);
+	List<Cliente>findByNome(String nome);
+	
+	Optional<Cliente> findById(Long id);
 
 }
