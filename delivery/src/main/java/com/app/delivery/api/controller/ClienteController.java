@@ -28,11 +28,9 @@ public class ClienteController {
 	
 	@GetMapping("/clientes/{id}")
 	public ResponseEntity<Cliente> pegarCliente(@PathVariable Long id) {
-		Optional<Cliente> cliente = clienteRespository.findById(id);
-		if (cliente.isPresent()) {
-			return ResponseEntity.ok(cliente.get());
-		}
-		return ResponseEntity.notFound().build();
+		return clienteRespository.findById(id)
+				.map(cliente ->ResponseEntity.ok(cliente))
+				.orElse(ResponseEntity.notFound().build());
 	}
 
 }
