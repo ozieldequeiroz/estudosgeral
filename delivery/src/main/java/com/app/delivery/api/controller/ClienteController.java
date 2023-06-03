@@ -44,4 +44,15 @@ public class ClienteController {
 	public Cliente criaCliente(@RequestBody Cliente cliente) {
 		return clienteRespository.save(cliente);
 	}
+	
+	public ResponseEntity<Cliente>atualiza(@PathVariable Long clienteId,@RequestBody Cliente cliente) {
+		
+		if(!clienteRespository.existsById(clienteId)) {
+			return ResponseEntity.notFound().build();
+		}
+		cliente.setId(clienteId);
+		clienteRespository.save(cliente);
+		
+		return ResponseEntity.ok(cliente);
+	}
 }
