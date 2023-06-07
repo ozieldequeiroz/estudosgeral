@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,9 +33,9 @@ public class ClienteController {
 		return clienteRespository.findAll();
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<Cliente> pegarCliente(@PathVariable Long id) {
-		return clienteRespository.findById(id)
+	@GetMapping("/{clienteId}")
+	public ResponseEntity<Cliente> pegarCliente(@PathVariable Long clienteId) {
+		return clienteRespository.findById(clienteId)
 				.map(cliente ->ResponseEntity.ok(cliente))
 				.orElse(ResponseEntity.notFound().build());
 	}
@@ -45,6 +46,7 @@ public class ClienteController {
 		return clienteRespository.save(cliente);
 	}
 	
+	@PostMapping("/{clienteId}")
 	public ResponseEntity<Cliente>atualiza(@PathVariable Long clienteId,@RequestBody Cliente cliente) {
 		
 		if(!clienteRespository.existsById(clienteId)) {
@@ -55,4 +57,17 @@ public class ClienteController {
 		
 		return ResponseEntity.ok(cliente);
 	}
+	
+	@DeleteMapping("/{clienteId}")
+	public ResponseEntity<Void> excluir(@PathVariable Long clienteId){
+		
+		if(!clienteRespository.existsById(clienteId)) {
+			return ResponseEntity.notFound().build();
+		}
+		clienteRespository.deleteById(clienteId);
+		return ResponseEntity.noContent().build();
+	}
+	
+	
+	
 }
