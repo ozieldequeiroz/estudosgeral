@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.delivery.api.model.Cliente;
 import com.app.delivery.api.repository.ClienteRepository;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("clientes")
 public class ClienteController {
@@ -42,12 +44,12 @@ public class ClienteController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cliente criaCliente(@RequestBody Cliente cliente) {
+	public Cliente criaCliente(@Valid @RequestBody Cliente cliente) {
 		return clienteRespository.save(cliente);
 	}
 	
 	@PostMapping("/{clienteId}")
-	public ResponseEntity<Cliente>atualiza(@PathVariable Long clienteId,@RequestBody Cliente cliente) {
+	public ResponseEntity<Cliente>atualiza(@Valid @PathVariable Long clienteId,@RequestBody Cliente cliente) {
 		
 		if(!clienteRespository.existsById(clienteId)) {
 			return ResponseEntity.notFound().build();
