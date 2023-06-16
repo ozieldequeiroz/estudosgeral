@@ -1,5 +1,7 @@
 package com.app.delivery.api.exceptionhandler;
 
+import java.time.LocalDateTime;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +17,12 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-		return super.handleMethodArgumentNotValid(ex, headers, status, request);
+		Problema problema = new Problema();
+		problema.setStatus(status.value());
+		problema.setDataHora(LocalDateTime.now());
+		problema.setTitulo("Um ou mais campos invalidos. Faça o preenchimento novamente!");
+		
+		return super.handleExceptionInternal(ex,problema, headers, status, request);
 	}
 
 }
