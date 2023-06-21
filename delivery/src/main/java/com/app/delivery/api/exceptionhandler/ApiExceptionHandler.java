@@ -7,6 +7,8 @@ import java.util.List;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
@@ -20,6 +22,12 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 		List<Problema.Campo> campos = new ArrayList<>();
+		
+		for(ObjectError error : ex.getBindingResult().getAllErrors()) {
+			String nome =  error.getObjectName(); 
+			String mensagem = error.getDefaultMessage();
+			campos.add(new Problema.Campo(nome,mensagem));
+		}
 		
 		Problema problema = new Problema();
 		problema.setStatus(status.value());
