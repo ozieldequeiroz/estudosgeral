@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +20,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	
+	@Autowired
+	private MessageSource messageSource;
 	
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
@@ -24,8 +29,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		List<Problema.Campo> campos = new ArrayList<>();
 		
 		for(ObjectError error : ex.getBindingResult().getAllErrors()) {
-			String nome =  error.getObjectName(); 
-			String mensagem = error.getDefaultMessage();
+			String nome =  ((FieldError) error).getField(); 
+			String mensagem = messageSource.getMessage(error, LocaleContextHolder.getLocale());
 			campos.add(new Problema.Campo(nome,mensagem));
 		}
 		
