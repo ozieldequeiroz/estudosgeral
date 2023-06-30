@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.delivery.api.model.Cliente;
 import com.app.delivery.api.repository.ClienteRepository;
+import com.app.delivery.api.service.CatalogoClienteService;
 
 import jakarta.validation.Valid;
 
@@ -29,6 +30,8 @@ public class ClienteController {
 	
 	@Autowired
 	private ClienteRepository clienteRespository;
+	@Autowired
+	private CatalogoClienteService catalogoClienteService;
 	
 	@GetMapping
 	public List<Cliente> listar() {
@@ -45,7 +48,7 @@ public class ClienteController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Cliente criaCliente(@Valid @RequestBody Cliente cliente) {
-		return clienteRespository.save(cliente);
+		return catalogoClienteService.salvar(cliente);
 	}
 	
 	@PostMapping("/{clienteId}")
@@ -66,7 +69,7 @@ public class ClienteController {
 		if(!clienteRespository.existsById(clienteId)) {
 			return ResponseEntity.notFound().build();
 		}
-		clienteRespository.deleteById(clienteId);
+		catalogoClienteService.excluir(clienteId);
 		return ResponseEntity.noContent().build();
 	}
 	
