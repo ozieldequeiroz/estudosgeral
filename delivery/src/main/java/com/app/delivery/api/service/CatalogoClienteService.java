@@ -17,6 +17,10 @@ public class CatalogoClienteService {
 	
 	@Transactional
 	public Cliente salvar(Cliente cliente) {
+		
+		boolean emailEmUso = clienteRepository.findByEmail(cliente.getEmail())
+		.stream()
+		.anyMatch(clienteExistente->!clienteExistente.equals(cliente));
 		return clienteRepository.save(cliente);
 	}
 	
