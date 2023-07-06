@@ -3,6 +3,7 @@ package com.app.delivery.api.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.app.delivery.api.exceptionhandler.NegocioException;
 import com.app.delivery.api.model.Cliente;
 import com.app.delivery.api.repository.ClienteRepository;
 
@@ -21,6 +22,9 @@ public class CatalogoClienteService {
 		boolean emailEmUso = clienteRepository.findByEmail(cliente.getEmail())
 		.stream()
 		.anyMatch(clienteExistente->!clienteExistente.equals(cliente));
+		if(emailEmUso) {
+			throw new NegocioException("Email já cadastrado"); 
+		}
 		return clienteRepository.save(cliente);
 	}
 	
