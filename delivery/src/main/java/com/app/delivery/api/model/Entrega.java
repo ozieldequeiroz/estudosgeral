@@ -4,4 +4,5 @@ public class Entrega {
 
 	private Long id;
 	private Cliente cliente;
+	private Destinatario destinatario;
 }
