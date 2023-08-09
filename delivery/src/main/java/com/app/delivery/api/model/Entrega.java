@@ -27,6 +27,7 @@ public class Entrega {
 	private BigDecimal taxa;
 	@Enumerated(EnumType.STRING)
 	private StatusEntrega status;
+	
 	private LocalDateTime dataPedido;
 	private LocalDateTime dataFinalizacao;
 	
