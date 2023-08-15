@@ -20,11 +20,12 @@ public class SolicitacaoEntregaService {
 	private EntregaRepository entregaRespository;
 	@Autowired
 	private ClienteRepository clienteRepository;
+	@Autowired
+	private CatalogoClienteService clienteService;
 	
 	@Transactional
 	public Entrega solicitar(Entrega entrega) {
-		Cliente cliente = clienteRepository.findById(entrega.getCliente().getId())
-				.orElseThrow(()->new NegocioException("Cliente não encontrado"));
+		clienteService.buscar(entrega.getCliente().getId());
 		entrega.setStatus(StatusEntrega.PENDENTE);
 		entrega.setDataPedido(LocalDateTime.now());
 		return entregaRespository.save(entrega);
