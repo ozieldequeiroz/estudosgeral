@@ -14,6 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Entrega {
@@ -21,6 +22,7 @@ public class Entrega {
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	private Long id;
 	
+	@NotNull
 	@ManyToOne
 	private Cliente cliente;
 	

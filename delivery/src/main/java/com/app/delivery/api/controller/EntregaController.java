@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.delivery.api.model.Entrega;
 import com.app.delivery.api.service.SolicitacaoEntregaService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/entregas")
 public class EntregaController {
@@ -20,7 +22,7 @@ public class EntregaController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Entrega solicitacao(@RequestBody Entrega entrega) {
+	public Entrega solicitacao(@Valid @RequestBody Entrega entrega) {
 		return entregaService.solicitar(entrega);
 	}
 
