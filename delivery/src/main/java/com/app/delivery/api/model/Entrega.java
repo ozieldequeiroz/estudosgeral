@@ -14,7 +14,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.groups.ConvertGroup;
+import jakarta.validation.groups.Default;
 
 @Entity
 public class Entrega {
@@ -22,6 +25,8 @@ public class Entrega {
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	private Long id;
 	
+	@Valid
+	@ConvertGroup(from = Default.class, to = ValidationGroups.ClienteId.class)
 	@NotNull
 	@ManyToOne
 	private Cliente cliente;

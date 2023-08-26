@@ -16,7 +16,7 @@ import jakarta.validation.groups.Default;
 public class Cliente {
 	
 	
-	@NotNull(groups = Default.class)
+	@NotNull(groups = ValidationGroups.ClienteId.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	private Long id;
