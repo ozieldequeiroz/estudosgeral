@@ -2,22 +2,28 @@ package com.app.delivery.api.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NotBlank;
 
 @Embeddable
 public class Destinatario {
 	
+	@NotBlank
 	@Column(name="destinatario_name")
 	private String nome;
 	
+	@NotBlank
 	@Column(name="destinatario_logradouro")
 	private String logradouro;
 	
+	@NotBlank
 	@Column(name="destinatario_numero")
 	private String numero;
 	
+	@NotBlank
 	@Column(name="destinatario_complemento")
 	private String complemento;
 	
+	@NotBlank
 	@Column(name="destinatario_bairro")
 	private String bairro;
 	
