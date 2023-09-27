@@ -14,6 +14,7 @@ public class EntregaModel {
 	private StatusEntrega status;
 	private OffsetDateTime dataPedido;
 	private OffsetDateTime dataFinalizacao;
+	
 	public Long getId() {
 		return id;
 	}
