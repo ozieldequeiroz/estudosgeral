@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.delivery.api.model.Entrega;
 import com.app.delivery.api.repository.EntregaRepository;
+import com.app.delivery.api.representationmodel.EntregaModel;
 import com.app.delivery.api.service.SolicitacaoEntregaService;
 
 import jakarta.validation.Valid;
@@ -39,9 +40,22 @@ public class EntregaController {
 		return entregaRepository.findAll();
 	}
 	
-	public ResponseEntity<Entrega>buscar(@PathVariable Long entregaId){
+	public ResponseEntity<EntregaModel>buscar(@PathVariable Long entregaId){
 		return entregaRepository.findById(entregaId)
-				.map(ResponseEntity::ok)
+				.map(entrega -> {
+					EntregaModel entregaModel = new EntregaModel();
+					entregaModel.setId(entrega.getId());
+					entregaModel.setNomeCliente(entrega.getCliente().getNome());
+					entregaModel.getDestinatario().setNome(entrega.getDestinatario().getNome());
+					entregaModel.getDestinatario().setBairro(entrega.getDestinatario().getBairro());
+					entregaModel.getDestinatario().setComplemento(entrega.getDestinatario().getComplemento());
+					entregaModel.getDestinatario().setNumero(entrega.getDestinatario().getNumero());
+					entregaModel.setStatus(entrega.getStatus());
+					entregaModel.setTaxa(entrega.getTaxa());
+					entregaModel.setDataFinalizacao(entrega.getDataFinalizacao());
+					entregaModel.setDataPedido(entrega.getDataPedido());
+					return ResponseEntity.ok(entregaModel);
+				})
 				.orElse(ResponseEntity.notFound().build());
 	}
 }
